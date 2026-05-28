@@ -1,0 +1,39 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('projects', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->uuid('tenant_id');
+            $table->string('name');
+            $table->string('status')->default('active');
+            $table->timestamps();
+
+            $table->foreign('tenant_id')->references('id')->on('tenants')->onDelete('cascade');
+        });
+
+        Schema::table('sites', function (Blueprint $table) {
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('set null');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('sites', function (Blueprint $table) {
+            $table->dropForeign(['project_id']);
+        });
+        Schema::dropIfExists('projects');
+    }
+};
