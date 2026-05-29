@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 use Illuminate\Auth\Access\AuthorizationException;
 use Exception;
+use App\Models\PermitWorker;
+use App\Actions\Contractors\VerifyWorkerEligibilityAction;
 
 class PermitToWorkController extends Controller
 {
@@ -71,6 +73,42 @@ class PermitToWorkController extends Controller
                 'error' => [
                     'code' => 'INVALID_STATE_TRANSITION',
                     'message' => $e->getMessage()
+                ]
+            ], 422);
+        }
+    }
+
+    public function addWorker(Request $request, PermitToWork $permit, VerifyWorkerEligibilityAction $action): JsonResponse
+    {
+        $validated = $request->validate([
+            'worker_id' => 'required|uuid|exists:workers,id',
+            'role' => 'nullable|string',
+            'required_certificate_type' => 'nullable|string'
+        ]);
+
+        try {
+            // Evaluates worker eligibility based on unexpired certificates
+            $action->execute($validated['worker_id'], $validated['required_certificate_type'] ?? null);
+
+            $permitWorker = PermitWorker::create([
+                'tenant_id' => $permit->tenant_id,
+                'permit_id' => $permit->id,
+                'worker_id' => $validated['worker_id'],
+                'role' => $validated['role'] ?? null,
+            ]);
+
+            return response()->json([
+                'data' => $permitWorker,
+                'meta' => [
+                    'message' => 'Worker successfully added to Permit To Work',
+                ]
+            ], 201);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'error' => [
+                    'code' => 'WORKER_NOT_COMPLIANT',
+                    'message' => $e->getMessage(),
                 ]
             ], 422);
         }

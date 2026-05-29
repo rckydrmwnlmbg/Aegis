@@ -20,6 +20,11 @@ class PermitToWork extends Model
         'valid_until' => 'datetime',
     ];
 
+    public function permitWorkers(): HasMany
+    {
+        return $this->hasMany(PermitWorker::class, 'permit_id');
+    }
+
     public function permitType(): BelongsTo
     {
         return $this->belongsTo(PermitType::class);
