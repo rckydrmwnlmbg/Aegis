@@ -29,3 +29,9 @@ Route::prefix('v1')->group(function () {
         });
     });
 });
+
+// PTW
+Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
+    Route::post('/ptw', [\App\Http\Controllers\Api\V1\PermitToWorkController::class, 'store']);
+    Route::patch('/ptw/{permit}/status', [\App\Http\Controllers\Api\V1\PermitToWorkController::class, 'updateStatus']);
+});
