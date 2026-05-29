@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\V1\AttachmentController;
 use App\Http\Controllers\Api\V1\SyncController;
 use App\Http\Controllers\Api\V1\IncidentController;
 use App\Http\Controllers\Api\V1\HazardController;
+use App\Http\Controllers\Api\V1\CapaController;
 
 Route::prefix('v1')->group(function () {
     Route::middleware('throttle:5,1')->post('/auth/login', [AuthController::class, 'login']);
@@ -19,5 +20,12 @@ Route::prefix('v1')->group(function () {
 
         Route::apiResource('incidents', IncidentController::class)->only(['index', 'show', 'update']);
         Route::apiResource('hazards', HazardController::class)->only(['index', 'show', 'update']);
+
+        Route::prefix('capa')->group(function () {
+            Route::post('/', [CapaController::class, 'store']);
+            Route::get('/my-tasks', [CapaController::class, 'myTasks']);
+            Route::post('/{id}/evidence', [CapaController::class, 'uploadEvidence']);
+            Route::patch('/{id}/verify', [CapaController::class, 'verify']);
+        });
     });
 });
