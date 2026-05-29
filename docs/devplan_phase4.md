@@ -6,7 +6,7 @@
  * @devops-infrastructure.md
 ## Milestone 4.1: Contractor & Compliance (Backend & Web)
 **Target:** Memastikan alat berat dan pekerja bersertifikat.
- * [ ] **Task 1:** API dan UI untuk mengunggah dan melacak tanggal kedaluwarsa certifications.
+ * [~] **Task 1:** API dan UI untuk mengunggah dan melacak tanggal kedaluwarsa certifications.
  * [ ] **Task 2:** Buat fitur *Scanner* di Flutter untuk membaca QR Code ID Card pekerja.
 ## Milestone 4.2: AI Copilot & RAG Setup (Backend & Web)
 **Target:** Chatbot interaktif untuk menanyakan SOP perusahaan.
