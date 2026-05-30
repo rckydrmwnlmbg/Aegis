@@ -61,7 +61,37 @@ architectural rationale must inform conservative interpretation.
 
 ---
 
-# ADR-001 — Modular Monolith Architecture
+# ADR-001 — Laravel Version Selection
+
+## Decision
+
+Canonical application framework version:
+
+Laravel 13.8 instead of Laravel 11 as stated in devplan.
+
+---
+
+## Status
+
+ACCEPTED
+
+---
+
+## Rationale
+
+Chosen because:
+
+- Jules initialized with latest stable version
+
+---
+
+## Impact
+
+None — Laravel 13 is backward compatible for all planned features.
+
+---
+
+# ADR-002 — Modular Monolith Architecture
 
 ## Decision
 
@@ -106,7 +136,7 @@ Do not split domains into distributed services without explicit architectural ch
 
 ---
 
-# ADR-002 — REST-First API Architecture
+# ADR-003 — REST-First API Architecture
 
 ## Decision
 
@@ -144,7 +174,7 @@ unstructured RPC sprawl
 
 ---
 
-# ADR-003 — Behavioral Workflow APIs
+# ADR-004 — Behavioral Workflow APIs
 
 ## Decision
 
@@ -181,7 +211,7 @@ generic CRUD workflow mutation
 
 ---
 
-# ADR-004 — External Identity Provider Authority
+# ADR-005 — External Identity Provider Authority
 
 ## Decision
 
@@ -213,7 +243,7 @@ homegrown primary authentication ownership
 
 ---
 
-# ADR-005 — Strict Tenant Isolation
+# ADR-006 — Strict Tenant Isolation
 
 ## Decision
 
@@ -251,7 +281,7 @@ attachments
 
 ---
 
-# ADR-006 — Analytics Separation
+# ADR-007 — Analytics Separation
 
 ## Decision
 
@@ -281,7 +311,7 @@ analytics-heavy direct transactional querying as primary architecture
 
 ---
 
-# ADR-007 — Central Attachment Infrastructure
+# ADR-008 — Central Attachment Infrastructure
 
 ## Decision
 
@@ -311,7 +341,7 @@ per-domain unmanaged file URL storage
 
 ---
 
-# ADR-008 — Event-Driven Internal Collaboration
+# ADR-009 — Event-Driven Internal Collaboration
 
 ## Decision
 
@@ -343,7 +373,7 @@ Not commands.
 
 ---
 
-# ADR-009 — At-Least-Once Event Delivery
+# ADR-010 — At-Least-Once Event Delivery
 
 ## Decision
 
@@ -367,7 +397,7 @@ Consumers must be idempotent.
 
 ---
 
-# ADR-010 — AI as Assistive Layer Only
+# ADR-011 — AI as Assistive Layer Only
 
 ## Decision
 
@@ -399,7 +429,7 @@ AI autonomous operational authority
 
 ---
 
-# ADR-011 — Offline-First Selected Operational Workflows
+# ADR-012 — Offline-First Selected Operational Workflows
 
 ## Decision
 
@@ -433,7 +463,7 @@ audit correctness
 
 ---
 
-# ADR-012 — Central Auditability
+# ADR-013 — Central Auditability
 
 ## Decision
 
@@ -459,7 +489,7 @@ partial workflow auditability
 
 ---
 
-# ADR-013 — Schema Domain Ownership
+# ADR-014 — Schema Domain Ownership
 
 ## Decision
 
@@ -489,7 +519,7 @@ flat mega-schema ownership model
 
 ---
 
-# ADR-014 — Sensitive Data Segregation
+# ADR-015 — Sensitive Data Segregation
 
 ## Decision
 
@@ -513,7 +543,7 @@ Security, privacy, regulatory risk containment.
 
 ---
 
-# ADR-015 — Provider Abstraction for AI & Integrations
+# ADR-016 — Provider Abstraction for AI & Integrations
 
 ## Decision
 
@@ -533,7 +563,7 @@ unsafe vendor dependency assumptions
 
 ---
 
-# ADR-016 — Shared SaaS First Deployment Evolution
+# ADR-017 — Shared SaaS First Deployment Evolution
 
 ## Decision
 
@@ -561,7 +591,7 @@ shared SaaS
 
 ---
 
-# ADR-017 — Security-First Enterprise Constraints
+# ADR-018 — Security-First Enterprise Constraints
 
 ## Decision
 
@@ -575,7 +605,7 @@ Enterprise trust boundary preservation.
 
 ---
 
-# ADR-018 — Documentation Constitution Governance
+# ADR-019 — Documentation Constitution Governance
 
 ## Decision
 
@@ -593,7 +623,7 @@ docs/README.md
 
 ---
 
-# ADR-019 — Jules Constraint Doctrine
+# ADR-020 — Jules Constraint Doctrine
 
 ## Decision
 
@@ -609,7 +639,7 @@ Not reinterpret architecture.
 
 ---
 
-# ADR-020 — Zero Duplicate Doctrine
+# ADR-021 — Zero Duplicate Doctrine
 
 ## Decision
 
