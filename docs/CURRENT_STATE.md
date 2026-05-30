@@ -32,7 +32,7 @@
 
 ## Phase 3 Status
 ## Milestone 3.1 Status
-- [ ] Task 1 (Backend): Buat skema dan API untuk inspection_templates dan inspections.
+- [x] Task 1 (Backend): Buat skema dan API untuk inspection_templates dan inspections.
 - [ ] Task 2 (Mobile): UI Eksekusi Inspeksi.
 
 ## Milestone 3.2 Status
@@ -89,6 +89,7 @@
 - 2026_05_29_133418_create_corrective_action_updates_table.php
 - 2026_05_29_145436_create_ptw_and_jsa_tables.php
 - 2026_05_29_194546_create_contractor_compliance_tables.php
+- 2026_05_30_165612_create_inspection_domain_tables.php
 
 ### Models
 - AiRun.php
@@ -116,10 +117,16 @@
 - Site.php
 - Tenant.php
 - Worker.php
+- Inspection.php
+- InspectionResponse.php
+- InspectionTemplate.php
+- InspectionTemplateItem.php
 
 ### Controllers
 - ApiController.php
 - AuthController.php
+- InspectionController.php
+- InspectionTemplateController.php
 - Controller.php
 - Api/V1/AttachmentController.php
 - Api/V1/CapaController.php
@@ -136,6 +143,7 @@
 
 ### Tests
 - Feature/AiStructuringPipelineTest.php
+- Feature/InspectionFeatureTest.php
 - Feature/PermitToWorkFeatureTest.php
 - Feature/ApiResponseTest.php
 - Feature/IncidentDashboardTest.php

@@ -9,6 +9,8 @@ use App\Http\Controllers\Api\V1\CapaController;
 use App\Http\Controllers\Api\V1\PermitToWorkController;
 use App\Http\Controllers\Api\V1\JsaController;
 use App\Http\Controllers\Api\V1\ContractorController;
+use App\Http\Controllers\InspectionTemplateController;
+use App\Http\Controllers\InspectionController;
 
 Route::prefix('v1')->group(function () {
     // Auth routes
@@ -49,5 +51,12 @@ Route::prefix('v1')->group(function () {
 
         // Contractor routes
         Route::apiResource('contractors', ContractorController::class)->only(['index']);
+
+        // Inspection routes
+        Route::apiResource('inspection-templates', InspectionTemplateController::class)->only(['index', 'store', 'show']);
+
+        Route::apiResource('inspections', InspectionController::class)->only(['index', 'store', 'show', 'update']);
+        Route::post('/inspections/{inspection}/start', [InspectionController::class, 'start']);
+        Route::post('/inspections/{inspection}/complete', [InspectionController::class, 'complete']);
     });
 });
