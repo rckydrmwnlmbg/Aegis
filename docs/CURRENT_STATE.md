@@ -10,7 +10,7 @@
 - [x] Task 4: Buat Feature Test (PHPUnit/Pest) untuk memastikan Login gagal jika kredensial salah.
 
 ## Milestone 1.3 Status
-- [ ] Task 1 (Web): Setup Next.js dengan Tailwind CSS.
+- [x] Task 1 (Web): Setup Next.js dengan Tailwind CSS.
 - [ ] Task 2 (Mobile): Setup Flutter.
 - [ ] Task 3 (Mobile): Buat mekanisme simpan Token.
 
@@ -64,7 +64,7 @@
 - Codebase uses Laravel 13 instead of Laravel 11.
 - Audit trail logs login events to `audit_events` instead of a separate `auth_audit_logs` table.
 - AI Structuring pipeline uses `ProcessIncidentDataJob` and `ProcessHazardDataJob` instead of `ProcessAudioToStructuredData`.
-- No frontend applications (Next.js web, Flutter mobile) are present in the repository (`apps/web` and `apps/mobile` are missing).
+- Mobile frontend application is missing (`apps/mobile`). Next.js Web frontend has been initialized in `apps/web`.
 
 ## File Inventory
 
