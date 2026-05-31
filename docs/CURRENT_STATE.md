@@ -61,10 +61,13 @@
 - [ ] Task 3 (DevOps): Susun Dockerfile dan CI/CD.
 
 ## Known Deviations from Devplan
-- Codebase uses Laravel 13 instead of Laravel 11.
+- Codebase uses Laravel 13 instead of Laravel 11 (Documented in ADR-001).
 - Audit trail logs login events to `audit_events` instead of a separate `auth_audit_logs` table.
 - AI Structuring pipeline uses `ProcessIncidentDataJob` and `ProcessHazardDataJob` instead of `ProcessAudioToStructuredData`.
 - Mobile frontend application is missing (`apps/mobile`). Next.js Web frontend has been initialized in `apps/web`.
+
+## Completed Tasks
+- Task 7: Recorded Architecture Decision for Laravel Version Selection (ADR-001) in `docs/architecture-decision-records.md`.
 
 ## File Inventory
 
