@@ -187,14 +187,16 @@ Defines HOW Aegis is structured.
 
 Authoritative documents:
 
-```text
+​```text
 domain-boundaries.md
 security-architecture.md
 multi-tenant-architecture.md
 offline-sync-architecture.md
 analytics-architecture.md
 deployment-architecture.md
-```
+ux-architecture.md
+ai-intelligence-architecture.md
+​```
 
 Ownership:
 
@@ -234,7 +236,7 @@ Defines operational constraints and governance.
 
 Authoritative documents:
 
-```text
+​```text
 rbac-matrix.md
 workflow-configurability.md
 ai-governance.md
@@ -244,7 +246,8 @@ data-retention-policy.md
 disaster-recovery.md
 incident-response-playbook.md
 integration-playbook.md
-```
+delegation-engine.md
+​```
 
 Ownership:
 
@@ -330,6 +333,19 @@ architecture-decision-records.md
 STEP 4
 
 Architecture docs
+
+Priority reading order within Step 4:
+
+```text
+domain-boundaries.md
+ux-architecture.md
+ai-intelligence-architecture.md
+multi-tenant-architecture.md
+security-architecture.md
+offline-sync-architecture.md
+analytics-architecture.md
+deployment-architecture.md
+```
 
 STEP 5
 
@@ -433,6 +449,24 @@ Architecture rationale ownership:
 
 ```text
 architecture-decision-records.md
+```
+
+Interface & UX layer ownership:
+
+```text
+ux-architecture.md
+```
+
+AI capability & intelligence ownership:
+
+```text
+ai-intelligence-architecture.md
+```
+
+Delegation & time-bound access ownership:
+
+```text
+delegation-engine.md
 ```
 
 ---
