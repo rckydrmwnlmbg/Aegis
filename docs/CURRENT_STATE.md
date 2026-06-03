@@ -56,7 +56,7 @@
 - [ ] Task 3 (Backend & Web): Integrasi AI Agent 4.2 dan UI Floating Chat.
 
 ## Milestone 4.3 Status
-- [ ] Task 1 (Backend): Buat endpoint agregasi data.
+- [x] Task 1 (Backend): Buat endpoint agregasi data.
 - [ ] Task 2 (Web): Buat komponen *Chart*.
 - [ ] Task 3 (DevOps): Susun Dockerfile dan CI/CD.
 

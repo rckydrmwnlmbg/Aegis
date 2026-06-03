@@ -58,5 +58,8 @@ Route::prefix('v1')->group(function () {
         Route::apiResource('inspections', InspectionController::class)->only(['index', 'store', 'show', 'update']);
         Route::post('/inspections/{inspection}/start', [InspectionController::class, 'start']);
         Route::post('/inspections/{inspection}/complete', [InspectionController::class, 'complete']);
+
+        // Analytics dashboard route
+        Route::get('/analytics/summary', [\App\Http\Controllers\Api\V1\AnalyticsController::class, 'summary']);
     });
 });
