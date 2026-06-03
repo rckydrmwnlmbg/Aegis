@@ -52,6 +52,11 @@ Route::prefix('v1')->group(function () {
         // Contractor routes
         Route::apiResource('contractors', ContractorController::class)->only(['index']);
 
+        // Certification routes
+        Route::get('/certifications/expiring', [\App\Http\Controllers\Api\V1\CertificationController::class, 'expiring']);
+        Route::post('/workers/{worker_id}/certifications', [\App\Http\Controllers\Api\V1\CertificationController::class, 'store']);
+        Route::get('/workers/{worker_id}/certifications', [\App\Http\Controllers\Api\V1\CertificationController::class, 'indexWorker']);
+
         // Inspection routes
         Route::apiResource('inspection-templates', InspectionTemplateController::class)->only(['index', 'store', 'show']);
 
