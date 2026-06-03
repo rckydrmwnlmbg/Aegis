@@ -47,7 +47,7 @@
 
 ## Phase 4 Status
 ## Milestone 4.1 Status
-- [~] Task 1: API dan UI untuk mengunggah dan melacak tanggal kedaluwarsa certifications. (Certification model exists, tests exist, API not clearly defined in api.php)
+- [x] Task 1: API dan UI untuk mengunggah dan melacak tanggal kedaluwarsa certifications. (Backend API Selesai: POST/GET /workers/{worker_id}/certifications dan GET /certifications/expiring)
 - [ ] Task 2: Buat fitur *Scanner* di Flutter.
 
 ## Milestone 4.2 Status
@@ -133,6 +133,7 @@
 - Controller.php
 - Api/V1/AttachmentController.php
 - Api/V1/CapaController.php
+- Api/V1/CertificationController.php
 - Api/V1/HazardController.php
 - Api/V1/IncidentController.php
 - Api/V1/JsaController.php
@@ -155,6 +156,7 @@
 - Feature/HazardDashboardTest.php
 - Feature/AuthTest.php
 - Feature/ContractorComplianceTest.php
+- Feature/CertificationApiTest.php
 - Feature/CheckOverdueCapaJobTest.php
 - Feature/ExampleTest.php
 - Feature/Api/V1/SyncTest.php
