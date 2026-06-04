@@ -57,7 +57,7 @@
 
 ## Milestone 4.3 Status
 - [x] Task 1 (Backend): Buat endpoint agregasi data.
-- [ ] Task 2 (Web): Buat komponen *Chart*.
+- [x] Task 2 (Web): Buat komponen *Chart* (Dashboard Widgets and Skeleton API Integration Completed).
 - [ ] Task 3 (DevOps): Susun Dockerfile dan CI/CD.
 
 ## Known Deviations from Devplan
