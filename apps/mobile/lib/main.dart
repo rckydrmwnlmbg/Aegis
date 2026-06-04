@@ -1,6 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:workmanager/workmanager.dart';
+import 'services/sync_service.dart';
 
-void main() {
+@pragma('vm:entry-point')
+void callbackDispatcher() {
+  Workmanager().executeTask((task, inputData) async {
+    try {
+      final syncService = SyncService();
+      await syncService.processSyncQueue();
+      return Future.value(true);
+    } catch (err) {
+      return Future.value(false);
+    }
+  });
+}
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Workmanager().initialize(
+    callbackDispatcher,
+    isInDebugMode: true, // Set to false in production
+  );
+  Workmanager().registerPeriodicTask(
+    "1",
+    "offlineSyncTask",
+    frequency: const Duration(minutes: 15),
+    constraints: Constraints(
+      networkType: NetworkType.connected,
+    ),
+  );
   runApp(const MyApp());
 }
 

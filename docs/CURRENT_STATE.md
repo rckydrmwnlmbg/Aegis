@@ -17,8 +17,8 @@
 ## Phase 2 Status
 ## Milestone 2.1 Status
 - [x] Task 1 (Backend): Buat endpoint POST /api/v1/sync/incidents dan hazards.
-- [ ] Task 2 (Mobile): Buat tabel SQLite lokal sync_queue.
-- [ ] Task 3 (Mobile): Buat *Background Worker* di Flutter.
+- [x] Task 2 (Mobile): Buat tabel SQLite lokal sync_queue.
+- [x] Task 3 (Mobile): Buat *Background Worker* di Flutter.
 
 ## Milestone 2.2 Status
 - [~] Task 1: Setup Laravel Horizon / Redis Queue. (Redis Queue is configured but Horizon is not clearly set up)
