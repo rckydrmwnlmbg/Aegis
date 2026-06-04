@@ -1,38 +1,24 @@
+import { StatWidget } from "@/components/StatWidget";
+
 export default function DashboardPage() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-text-primary">Dashboard</h1>
-        <p className="text-text-secondary mt-1">Overview of your EHS operations.</p>
+        <h1 className="text-3xl font-bold text-slate-800 tracking-tight">Dashboard Overview</h1>
+        <p className="text-slate-500 mt-2 font-medium">Your EHS operations are performing excellently today ✨</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* Placeholder metric cards */}
-        <div className="bg-surface p-6 rounded-lg shadow-sm border border-gray-100">
-          <h3 className="text-sm font-medium text-text-secondary mb-2">Open Incidents</h3>
-          <p className="text-3xl font-bold text-danger">12</p>
-        </div>
-
-        <div className="bg-surface p-6 rounded-lg shadow-sm border border-gray-100">
-          <h3 className="text-sm font-medium text-text-secondary mb-2">Pending Permits</h3>
-          <p className="text-3xl font-bold text-warning">5</p>
-        </div>
-
-        <div className="bg-surface p-6 rounded-lg shadow-sm border border-gray-100">
-          <h3 className="text-sm font-medium text-text-secondary mb-2">Overdue CAPA</h3>
-          <p className="text-3xl font-bold text-danger">2</p>
-        </div>
-
-        <div className="bg-surface p-6 rounded-lg shadow-sm border border-gray-100">
-          <h3 className="text-sm font-medium text-text-secondary mb-2">Safety Score</h3>
-          <p className="text-3xl font-bold text-safe">94%</p>
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <StatWidget title="OPEN INCIDENTS" value="12" trend="up" trendValue="2" />
+        <StatWidget title="PENDING PERMITS" value="5" trend="neutral" trendValue="0" />
+        <StatWidget title="OVERDUE CAPA" value="2" trend="down" trendValue="1" />
+        <StatWidget title="SAFETY SCORE" value="94%" trend="up" trendValue="1%" />
       </div>
 
-      <div className="bg-surface p-6 rounded-lg shadow-sm border border-gray-100 min-h-[400px]">
-        <h3 className="text-lg font-medium text-text-primary mb-4">Recent Activity</h3>
-        <div className="flex items-center justify-center h-64 text-text-secondary">
-          Activity chart placeholder
+      <div className="bg-white/60 backdrop-blur-xl border border-white/40 shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-8 rounded-[2rem] min-h-[400px]">
+        <h3 className="text-lg font-semibold text-slate-700 mb-6 tracking-tight">Recent Activity Trends</h3>
+        <div className="flex items-center justify-center h-64 text-slate-400 font-medium bg-white/30 rounded-2xl border border-white/50 border-dashed">
+          Interactive Chart Area
         </div>
       </div>
     </div>
