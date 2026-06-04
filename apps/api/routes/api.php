@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\V1\CapaController;
 use App\Http\Controllers\Api\V1\PermitToWorkController;
 use App\Http\Controllers\Api\V1\JsaController;
 use App\Http\Controllers\Api\V1\ContractorController;
+use App\Http\Controllers\Api\V1\CopilotController;
 use App\Http\Controllers\InspectionTemplateController;
 use App\Http\Controllers\InspectionController;
 
@@ -66,5 +67,8 @@ Route::prefix('v1')->group(function () {
 
         // Analytics dashboard route
         Route::get('/analytics/summary', [\App\Http\Controllers\Api\V1\AnalyticsController::class, 'summary']);
+
+        // Copilot
+        Route::post('/copilot/ask', [CopilotController::class, 'ask']);
     });
 });

@@ -51,8 +51,8 @@
 - [ ] Task 2: Buat fitur *Scanner* di Flutter.
 
 ## Milestone 4.2 Status
-- [ ] Task 1 (Backend): Konfigurasi ekstensi pgvector di PostgreSQL.
-- [ ] Task 2 (Backend): Buat alur RAG.
+- [x] Task 1 (Backend): Konfigurasi ekstensi pgvector di PostgreSQL.
+- [x] Task 2 (Backend): Buat alur RAG.
 - [ ] Task 3 (Backend & Web): Integrasi AI Agent 4.2 dan UI Floating Chat.
 
 ## Milestone 4.3 Status
