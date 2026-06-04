@@ -1,29 +1,35 @@
 # Design System & UI/UX Guidelines
 **Project:** Aegis AI EHS Platform
-**Target AI Agents:** Frontend Coders (Flutter & Next.js)
+**Theme:** True Futuristic Soft UI & Glassmorphism
+
 ## 1. Core Philosophy
-Desain Aegis harus mengutamakan fungsi di atas estetika (*Utilitarian First*). Pengguna di lapangan mungkin menggunakan sarung tangan, berada di bawah terik matahari, atau dalam kondisi panik. UI harus memiliki kontras tinggi, tombol besar (mudah ditekan), dan minim teks yang tidak perlu.
-## 2. Color Palette (Tailwind & Flutter Colors)
-Gunakan kode warna ini secara ketat. Jangan biarkan AI Agent menebak warna abu-abu.
- * **Primary (Brand):** Navy Blue #0F172A (Untuk header, tombol utama).
- * **Background:** Light Gray #F8FAFC (Agar kontras dengan form putih).
- * **Surface:** White #FFFFFF (Untuk Card, Modal, Bottom Sheet).
- * **Text Primary:** Slate 900 #0F172A
- * **Text Secondary:** Slate 500 #64748B
-**Safety Semantic Colors (Wajib untuk Status/Badge):**
- * **Danger/High Risk/Incident:** Red #DC2626
- * **Warning/Hazard/Medium Risk:** Amber #D97706
- * **Safe/Approved/Low Risk:** Emerald #16A34A
- * **Info/Processing/AI Draft:** Blue #2563EB
-## 3. Typography
- * **Web (Next.js):** Inter (sans-serif). Bersih dan sangat terbaca untuk tabel data padat.
- * **Mobile (Flutter):** Roboto (Android) / San Francisco (iOS) bawaan sistem untuk performa maksimal.
- * **Base Size:** 16px untuk teks tubuh (*body text*). Jangan gunakan ukuran di bawah 12px.
-## 4. Mobile Component Standards (Flutter)
- 1. **Buttons:** Minimal tinggi 48dp (aturan jempol/ *thumb-friendly*).
- 2. **Forms:** Selalu gunakan label di luar input (*Outside Label*). Jangan gunakan *placeholder* sebagai label karena akan hilang saat pengguna mulai mengetik.
- 3. **Bottom Navigation:** Maksimal 4 tab utama (Home, Inspeksi, JSA, Profil).
- 4. **Offline States:** Jika data belum tersinkronisasi, berikan *badge* kecil bergaris miring pada ikon awan di pojok kanan atas layar/kartu data.
-## 5. Web Component Standards (Next.js / Tailwind)
- 1. **Data Tables:** Harus selalu mendukung *horizontal scroll* dan memiliki fitur *Sticky Header*.
- 2. **Modals:** Gunakan *slide-over* (panel dari kanan) untuk form panjang (seperti membuat CAPA), gunakan *center modal* hanya untuk konfirmasi (Ya/Tidak).
+The visual identity of Aegis EHS strictly relies on a fluid, non-rigid aesthetic inspired by modern, airy dashboards. It entirely avoids harsh, solid dark blocks (like traditional sidebars). Instead, it uses a soft gradient canvas overlaid with highly translucent floating elements. While utilitarian (high contrast, easy to read), it must feel futuristic and light.
+
+## 2. Global Background
+- **Gradient Canvas**: Never use solid white or rigid solid colors for the main background. Always use a very soft gradient mesh or linear gradient, for example: `bg-gradient-to-br from-slate-50 to-slate-100`. This creates depth for the glass elements on top.
+
+## 3. Glassmorphism & Surfaces (Cards, Sidebar)
+- **Effect**: All main structural containers (Sidebars, Cards, Widgets) must use true glassmorphism.
+- **Tailwind Classes**: Implement using highly transparent white backgrounds and strong blurs.
+  - Background: `bg-white/60` (or similar low opacity).
+  - Blur: `backdrop-blur-xl` or `backdrop-blur-2xl`.
+  - Border: Subtle translucent border `border border-white/40` to catch the light.
+  - Shadow: Large, soft, and highly transparent shadows, e.g., `shadow-2xl shadow-slate-200/40` or `shadow-[0_8px_30px_rgb(0,0,0,0.04)]`.
+- **Floating Sidebar**: The sidebar must not be a solid, edge-to-edge block. It must be a "floating" glassmorphic container with margins separating it from the edges of the screen, or seamlessly blend with the background.
+
+## 4. Shape & Border
+- **Extreme Rounded Corners**: Avoid sharp corners entirely.
+  - Cards, sidebars, and large containers: Use `rounded-3xl` or `rounded-[2rem]`.
+  - Buttons, badges, and small indicators: Use `rounded-full`.
+
+## 5. Color Palette & Accents
+- **Primary Accent (HSE Identity)**: **Crimson / Neon Red** (e.g. #DC2626). Used *extremely minimally* and *elegantly*. Only apply it as a thin accent (e.g., small indicator dots, warning text, or a sparkline chart). Do not use it for large solid buttons or blocks unless absolutely critical.
+- **Semantic Colors**:
+  - Safe / Active: Soft Emerald #16A34A (Use light translucent backgrounds like `bg-emerald-500/10` with `text-emerald-600` for badges).
+  - Warning: Soft Amber #D97706.
+- **Text Primary**: Navy Blue / Slate 900 (`#0f172a`) for high contrast and readability against the translucent white cards.
+- **Text Secondary**: Slate 500 (`#64748B`).
+
+## 6. Typography
+- **Web (Next.js)**: Inter (sans-serif). Bersih dan sangat terbaca.
+- **Base Size**: 16px untuk teks tubuh.
