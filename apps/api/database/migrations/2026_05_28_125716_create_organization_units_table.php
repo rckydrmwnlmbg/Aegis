@@ -19,6 +19,9 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('tenant_id')->references('id')->on('tenants')->onDelete('cascade');
+        });
+
+        Schema::table('organization_units', function (Blueprint $table) {
             $table->foreign('parent_id')->references('id')->on('organization_units')->onDelete('set null');
         });
     }

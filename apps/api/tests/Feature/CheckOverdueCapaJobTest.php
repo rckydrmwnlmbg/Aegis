@@ -35,7 +35,7 @@ class CheckOverdueCapaJobTest extends TestCase
             'status' => 'open',
             'due_date' => $dueDate,
             'source_type' => 'test',
-            'source_id' => '123'
+            'source_id' => \Illuminate\Support\Str::uuid()
         ]);
 
         // Mock current time to be 2026-05-30 00:01:00 in Asia/Jakarta
@@ -80,7 +80,7 @@ class CheckOverdueCapaJobTest extends TestCase
             'status' => 'open',
             'due_date' => $dueDate,
             'source_type' => 'test',
-            'source_id' => '123'
+            'source_id' => \Illuminate\Support\Str::uuid()
         ]);
 
         // Mock current time to be 2026-05-29 23:59:00 in America/New_York

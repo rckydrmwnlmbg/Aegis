@@ -15,6 +15,11 @@ class AppServiceProvider extends ServiceProvider
             \App\Services\Contracts\AiLlmInterface::class,
             \App\Services\OpenAiLlmService::class
         );
+
+        $this->app->bind(
+            \App\Contracts\LlmGatewayInterface::class,
+            \App\Services\LlmGateway::class
+        );
     }
 
     /**
