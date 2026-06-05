@@ -50,7 +50,7 @@ class SyncService {
 
         if (response.statusCode == 200 || response.statusCode == 201 || response.statusCode == 202) {
           // Success, remove from queue
-          await _dbService.removeSyncItem(item.id);
+          await _dbService.deleteSyncItem(item.id);
         } else {
           // Failed with non-2xx status code
           await _handleFailure(item);

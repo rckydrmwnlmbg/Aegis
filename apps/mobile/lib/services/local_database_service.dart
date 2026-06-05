@@ -54,7 +54,7 @@ class LocalDatabaseService {
     );
   }
 
-  Future<void> removeSyncItem(String id) async {
+  Future<void> deleteSyncItem(String id) async {
     final db = await database;
     await db.delete(
       'sync_queue',
