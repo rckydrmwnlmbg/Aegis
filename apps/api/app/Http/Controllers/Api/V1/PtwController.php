@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class PtwController extends Controller
 {
@@ -91,6 +92,8 @@ class PtwController extends Controller
                 ], Response::HTTP_FORBIDDEN);
             }
             $ptw->manager_id = $user->id;
+            $ptw->approved_at = now();
+            $ptw->manager_signature = Hash::make($user->id . $ptw->id . now());
         }
 
         // Rejection logic

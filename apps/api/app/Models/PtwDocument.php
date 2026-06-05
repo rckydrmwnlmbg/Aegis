@@ -20,6 +20,8 @@ class PtwDocument extends Model
         'applicant_id',
         'assessor_id',
         'manager_id',
+        'manager_signature',
+        'approved_at',
     ];
 
     public function applicant()
