@@ -9,19 +9,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: "#0F172A",
-        brand: "#0F172A",
-        background: "#F8FAFC",
-        surface: "#FFFFFF",
-        "text-primary": "#0F172A",
-        "text-secondary": "#64748B",
-        danger: "#DC2626",
-        warning: "#D97706",
-        safe: "#16A34A",
-        info: "#2563EB",
+        'hse-red': '#E63946',
+        'soft-bg': '#F0F4F8',
       },
-      fontFamily: {
-        sans: ["Inter", "sans-serif"],
+      borderRadius: {
+        '3xl': '2rem',
       },
     },
   },
