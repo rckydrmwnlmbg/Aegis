@@ -1,3 +1,5 @@
+import React from 'react';
+
 interface Column {
   key: string;
   header: string;
@@ -5,7 +7,7 @@ interface Column {
 
 interface DataGridProps {
   columns: Column[];
-  data: any[];
+  data: Record<string, string | number>[];
 }
 
 export function DataGrid({ columns, data }: DataGridProps) {
