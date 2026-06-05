@@ -2,6 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 240, 244, 248;
+  --background-end-rgb: 255, 255, 255;
+}
+
 body {
-  @apply bg-background text-text-primary antialiased;
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+  /* Soft Mesh Background */
+  background-image:
+    radial-gradient(at 40% 20%, hsla(28,100%,74%,1) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, hsla(189,100%,56%,1) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, hsla(355,100%,93%,1) 0px, transparent 50%),
+    radial-gradient(at 80% 50%, hsla(340,100%,76%,1) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, hsla(22,100%,77%,1) 0px, transparent 50%),
+    radial-gradient(at 80% 100%, hsla(242,100%,70%,1) 0px, transparent 50%),
+    radial-gradient(at 0% 0%, hsla(343,100%,76%,1) 0px, transparent 50%);
+  min-height: 100vh;
+}
+
+/* Glassmorphism Classes */
+.glass-panel {
+  @apply bg-white/60 backdrop-blur-xl shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] border border-white/20 rounded-[2rem];
+}
+
+.glass-input {
+  @apply bg-white/40 backdrop-blur-md border border-white/30 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-hse-red focus:border-transparent;
+}
+
+.glass-button {
+  @apply bg-white/60 hover:bg-white/80 backdrop-blur-md border border-white/30 rounded-full px-6 py-2 transition-all shadow-sm hover:shadow-md text-gray-800 font-medium;
+}
+
+.glass-button-primary {
+  @apply bg-hse-red/90 hover:bg-hse-red text-white backdrop-blur-md border border-red-400/50 rounded-full px-6 py-2 transition-all shadow-sm hover:shadow-md font-medium;
 }
