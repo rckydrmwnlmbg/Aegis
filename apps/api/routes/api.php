@@ -1,74 +1,25 @@
 <?php
+
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Api\V1\AttachmentController;
-use App\Http\Controllers\Api\V1\SyncController;
-use App\Http\Controllers\Api\V1\IncidentController;
-use App\Http\Controllers\Api\V1\HazardController;
-use App\Http\Controllers\Api\V1\CapaController;
-use App\Http\Controllers\Api\V1\PermitToWorkController;
-use App\Http\Controllers\Api\V1\JsaController;
-use App\Http\Controllers\Api\V1\ContractorController;
-use App\Http\Controllers\Api\V1\CopilotController;
-use App\Http\Controllers\InspectionTemplateController;
-use App\Http\Controllers\InspectionController;
+use App\Http\Controllers\Api\V1\PtwController;
 
-Route::prefix('v1')->group(function () {
-    // Auth routes
-    Route::middleware('throttle:5,1')->post('/auth/login', [AuthController::class, 'login']);
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register API routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "api" middleware group. Make something great!
+|
+*/
 
-    Route::middleware('auth:sanctum')->group(function () {
-        Route::post('/auth/logout', [AuthController::class, 'logout']);
-        Route::get('/auth/me', [AuthController::class, 'me']);
-        Route::post('/attachments', [AttachmentController::class, 'store']);
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
-        // Sync routes
-        Route::prefix('sync')->group(function () {
-            Route::post('/incidents', [SyncController::class, 'incidents']);
-            Route::post('/hazards', [SyncController::class, 'hazards']);
-        });
-
-        // Incident routes
-        Route::apiResource('incidents', IncidentController::class)->only(['index', 'show', 'update']);
-
-        // Hazard routes
-        Route::apiResource('hazards', HazardController::class)->only(['index', 'show', 'update']);
-
-        // CAPA routes
-        Route::prefix('capa')->group(function () {
-            Route::post('/', [CapaController::class, 'store']);
-            Route::get('/my-tasks', [CapaController::class, 'myTasks']);
-            Route::post('/{id}/evidence', [CapaController::class, 'uploadEvidence']);
-            Route::patch('/{id}/verify', [CapaController::class, 'verify']);
-        });
-
-        // PTW routes
-        Route::post('/ptw', [PermitToWorkController::class, 'store']);
-        Route::patch('/ptw/{permit}/status', [PermitToWorkController::class, 'updateStatus']);
-        Route::post('/ptw/{permit}/workers', [PermitToWorkController::class, 'addWorker']);
-
-        // JSA routes
-        Route::post('/jsa', [JsaController::class, 'store']);
-
-        // Contractor routes
-        Route::apiResource('contractors', ContractorController::class)->only(['index']);
-
-        // Certification routes
-        Route::get('/certifications/expiring', [\App\Http\Controllers\Api\V1\CertificationController::class, 'expiring']);
-        Route::post('/workers/{worker_id}/certifications', [\App\Http\Controllers\Api\V1\CertificationController::class, 'store']);
-        Route::get('/workers/{worker_id}/certifications', [\App\Http\Controllers\Api\V1\CertificationController::class, 'indexWorker']);
-
-        // Inspection routes
-        Route::apiResource('inspection-templates', InspectionTemplateController::class)->only(['index', 'store', 'show']);
-
-        Route::apiResource('inspections', InspectionController::class)->only(['index', 'store', 'show', 'update']);
-        Route::post('/inspections/{inspection}/start', [InspectionController::class, 'start']);
-        Route::post('/inspections/{inspection}/complete', [InspectionController::class, 'complete']);
-
-        // Analytics dashboard route
-        Route::get('/analytics/summary', [\App\Http\Controllers\Api\V1\AnalyticsController::class, 'summary']);
-
-        // Copilot
-        Route::post('/copilot/ask', [CopilotController::class, 'ask']);
-    });
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/v1/ptw', [PtwController::class, 'store']);
+    Route::put('/v1/ptw/{id}/status', [PtwController::class, 'updateStatus']);
 });
