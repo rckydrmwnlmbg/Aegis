@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import '../core/network/api_client.dart';
 import 'local_database_service.dart';
 import '../models/sync_queue_item.dart';
@@ -8,14 +9,24 @@ import 'secure_storage_service.dart';
 class SyncService {
   final LocalDatabaseService _dbService;
   final ApiClient _apiClient;
+  final Connectivity _connectivity;
 
   SyncService({
     LocalDatabaseService? dbService,
     ApiClient? apiClient,
+    Connectivity? connectivity,
   })  : _dbService = dbService ?? LocalDatabaseService(),
-        _apiClient = apiClient ?? ApiClient(secureStorageService: SecureStorageService());
+        _apiClient = apiClient ?? ApiClient(secureStorageService: SecureStorageService()),
+        _connectivity = connectivity ?? Connectivity();
 
   Future<void> processSyncQueue() async {
+    // Check connectivity first
+    final connectivityResult = await _connectivity.checkConnectivity();
+    if (connectivityResult.contains(ConnectivityResult.none)) {
+      // No internet connection, abort sync
+      return;
+    }
+
     final pendingItemsRaw = await _dbService.getPendingSyncItems();
     final pendingItems = pendingItemsRaw.map((e) => SyncQueueItem.fromMap(e)).toList();
 
@@ -39,7 +50,7 @@ class SyncService {
 
         if (response.statusCode == 200 || response.statusCode == 201 || response.statusCode == 202) {
           // Success, remove from queue
-          await _dbService.removeSyncItem(item.id);
+          await _dbService.deleteSyncItem(item.id);
         } else {
           // Failed with non-2xx status code
           await _handleFailure(item);
