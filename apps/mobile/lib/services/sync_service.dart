@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import '../core/network/api_client.dart';
 import 'local_database_service.dart';
 import '../models/sync_queue_item.dart';
@@ -8,14 +9,24 @@ import 'secure_storage_service.dart';
 class SyncService {
   final LocalDatabaseService _dbService;
   final ApiClient _apiClient;
+  final Connectivity _connectivity;
 
   SyncService({
     LocalDatabaseService? dbService,
     ApiClient? apiClient,
+    Connectivity? connectivity,
   })  : _dbService = dbService ?? LocalDatabaseService(),
-        _apiClient = apiClient ?? ApiClient(secureStorageService: SecureStorageService());
+        _apiClient = apiClient ?? ApiClient(secureStorageService: SecureStorageService()),
+        _connectivity = connectivity ?? Connectivity();
 
   Future<void> processSyncQueue() async {
+    // Check connectivity first
+    final connectivityResult = await _connectivity.checkConnectivity();
+    if (connectivityResult.contains(ConnectivityResult.none)) {
+      // No internet connection, abort sync
+      return;
+    }
+
     final pendingItemsRaw = await _dbService.getPendingSyncItems();
     final pendingItems = pendingItemsRaw.map((e) => SyncQueueItem.fromMap(e)).toList();
 
