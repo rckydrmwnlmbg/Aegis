@@ -3,44 +3,22 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
-import axios from 'axios';
-import api from '@/lib/api';
 import { motion } from 'framer-motion';
 
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
     setLoading(true);
 
     try {
-      const response = await api.post('/api/v1/auth/login', {
-        email,
-        password,
-      });
-
-      const token = response.data.data?.token || response.data?.token;
-
-      if (token) {
-        Cookies.set('token', token, { expires: 7 });
-        router.push('/dashboard');
-      } else {
-        setError('Invalid response from server.');
-      }
-    } catch (err: unknown) {
-      if (axios.isAxiosError(err)) {
-        setError(err.response?.data?.error?.message || err.message || "Login failed");
-      } else if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("Login failed");
-      }
+      // Bypass API call for testing
+      Cookies.set('token', 'bypass-token', { expires: 7 });
+      router.push('/dashboard');
     } finally {
       setLoading(false);
     }
@@ -82,12 +60,6 @@ export default function LoginPage() {
             <h2 className="text-4xl font-black text-slate-900 tracking-tight mb-2">Sign In</h2>
             <p className="text-slate-500 font-medium text-lg">Enter your credentials to access the platform.</p>
           </div>
-
-          {error && (
-            <div className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded-r mb-8">
-              <p className="font-medium text-sm">{error}</p>
-            </div>
-          )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
