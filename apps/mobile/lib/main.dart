@@ -4,6 +4,7 @@ import 'services/sync_service.dart';
 import 'screens/ptw_form_screen.dart';
 import 'screens/jsa_form_screen.dart';
 import 'screens/smart_capture_screen.dart';
+import 'screens/inspection_execution_screen.dart';
 
 @pragma('vm:entry-point')
 void callbackDispatcher() {
@@ -101,6 +102,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
               child: const Text('Smart Capture Incident'),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const InspectionExecutionScreen(),
+                  ),
+                );
+              },
+              child: const Text('Execute Inspection'),
             ),
           ],
         ),

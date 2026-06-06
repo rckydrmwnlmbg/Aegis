@@ -33,7 +33,7 @@
 ## Phase 3 Status
 ## Milestone 3.1 Status
 - [x] Task 1 (Backend): Buat skema dan API untuk inspection_templates dan inspections.
-- [ ] Task 2 (Mobile): UI Eksekusi Inspeksi.
+- [x] Task 2 (Mobile): UI Eksekusi Inspeksi.
 
 ## Milestone 3.2 Status
 - [x] Task 1 (Backend): Buat endpoint pembuatan JSA yang kompleks. (Jsa models exist, and tables, but no explicit endpoint in routes/api.php for creation of JSA)
