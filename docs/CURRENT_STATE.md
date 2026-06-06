@@ -26,7 +26,7 @@
 - [x] Task 3: Simpan *Raw Payload* dari LLM ke tabel ai_runs, lalu ekstrak dan pindahkan ke tabel incidents atau hazard_observations dengan status draft_ready.
 
 ## Milestone 2.3 Status
-- [ ] Task 1 (Mobile): Buat UI "Smart Capture".
+- [x] Task 1 (Mobile): Buat UI "Smart Capture".
 - [ ] Task 2 (Web): Buat tabel Triage Dashboard.
 - [ ] Task 3 (Web): Buat form *Review*.
 
