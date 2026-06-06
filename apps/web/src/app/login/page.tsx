@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import api from '@/lib/api';
+import { motion } from 'framer-motion';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -27,9 +28,7 @@ export default function LoginPage() {
       const token = response.data.data?.token || response.data?.token;
 
       if (token) {
-        // In a real app we might want to store this in an HttpOnly cookie
-        // For Next.js client side, js-cookie works as a simple fallback
-        Cookies.set('token', token, { expires: 7 }); // Expires in 7 days
+        Cookies.set('token', token, { expires: 7 });
         router.push('/dashboard');
       } else {
         setError('Invalid response from server.');
@@ -42,63 +41,96 @@ export default function LoginPage() {
       } else {
         setError("Login failed");
       }
-
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="max-w-md w-full bg-surface p-8 rounded-lg shadow-md">
-        <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-primary mb-2">Aegis EHS Platform</h1>
-          <p className="text-text-secondary">Sign in to your account</p>
+    <div className="min-h-screen flex selection:bg-slate-900 selection:text-white">
+      {/* Left side - Branding (Dark) */}
+      <div className="hidden lg:flex lg:w-1/2 bg-slate-950 flex-col justify-between p-16 relative overflow-hidden">
+        {/* Subtle geometric overlay instead of gradient */}
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white to-transparent pointer-events-none"></div>
+
+        <div className="relative z-10">
+          <div className="inline-flex items-center space-x-3 mb-8">
+            <span className="w-3 h-3 bg-white rounded-full"></span>
+            <span className="text-white font-bold tracking-widest text-sm uppercase">Aegis Systems</span>
+          </div>
         </div>
 
-        {error && (
-          <div className="bg-danger/10 border border-danger text-danger px-4 py-3 rounded mb-4">
-            {error}
-          </div>
-        )}
+        <div className="relative z-10">
+          <h1 className="text-6xl font-black text-white tracking-tighter leading-tight mb-6">
+            ENTERPRISE<br/>SECURITY<br/>PROTOCOL.
+          </h1>
+          <p className="text-slate-400 text-xl font-medium max-w-md">
+            Authorized access only. Secure connection established.
+          </p>
+        </div>
+      </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label className="block text-sm font-medium text-text-primary mb-1">
-              Email Address
-            </label>
-            <input
-              type="email"
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-text-primary"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              disabled={loading}
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-text-primary mb-1">
-              Password
-            </label>
-            <input
-              type="password"
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-text-primary"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              disabled={loading}
-            />
+      {/* Right side - Login Form (White) */}
+      <div className="w-full lg:w-1/2 bg-white flex items-center justify-center p-8 sm:p-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+          className="w-full max-w-md"
+        >
+          <div className="mb-12">
+            <h2 className="text-4xl font-black text-slate-900 tracking-tight mb-2">Sign In</h2>
+            <p className="text-slate-500 font-medium text-lg">Enter your credentials to access the platform.</p>
           </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-primary text-white font-medium py-3 px-4 rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 min-h-[48px]"
-          >
-            {loading ? 'Signing in...' : 'Sign In'}
-          </button>
-        </form>
+          {error && (
+            <div className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded-r mb-8">
+              <p className="font-medium text-sm">{error}</p>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label className="block text-sm font-bold text-slate-900 mb-2 uppercase tracking-wide">
+                Email Address
+              </label>
+              <input
+                type="email"
+                required
+                className="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent text-slate-900 font-medium transition-all"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={loading}
+                placeholder="name@company.com"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-bold text-slate-900 mb-2 uppercase tracking-wide">
+                Password
+              </label>
+              <input
+                type="password"
+                required
+                className="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent text-slate-900 font-medium transition-all"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                disabled={loading}
+                placeholder="••••••••"
+              />
+            </div>
+
+            <div className="pt-4">
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-slate-900 text-white font-bold py-4 px-6 rounded-xl hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-900 disabled:opacity-50 transition-all hover:-translate-y-0.5"
+              >
+                {loading ? 'Authenticating...' : 'Sign In'}
+              </button>
+            </div>
+          </form>
+        </motion.div>
       </div>
     </div>
   );
