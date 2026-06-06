@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import api from "@/lib/api";
 
 type TriageItem = {
@@ -22,13 +23,13 @@ export default function TriageDashboardPage() {
         setLoading(true);
         // Fetch incidents
         const resIncidents = await api.get("/api/v1/incidents?status=draft_ready");
-        const incidents: TriageItem[] = resIncidents.data.data.map((item: any) => ({
-          id: item.id,
+        const incidents: TriageItem[] = resIncidents.data.data.map((item: { id: string; title: string; description: string; status: string; created_at: string; } ) => ({
+          id: String(item.id),
           type: "incident",
-          title: item.title || "Untitled Incident",
-          description: item.description || "No description provided",
-          status: item.status,
-          created_at: item.created_at,
+          title: String(item.title || "") || "Untitled Incident",
+          description: String(item.description || "") || "No description provided",
+          status: String(item.status),
+          created_at: String(item.created_at),
         }));
 
         // Fetch hazards if API available, skip for now if not to prevent crash
@@ -82,26 +83,24 @@ export default function TriageDashboardPage() {
         ) : (
           <div className="space-y-4">
             {items.map((item) => (
-              <div key={item.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-6 bg-white/80 hover:bg-white transition-colors rounded-[2rem] shadow-sm border border-white/20 gap-4">
+              <div key={String(item.id)} className="flex flex-col sm:flex-row sm:items-center justify-between p-6 bg-white/80 hover:bg-white transition-colors rounded-[2rem] shadow-sm border border-white/20 gap-4">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-3 mb-1">
                     <span className={`px-3 py-1 rounded-full text-xs font-semibold ${item.type === 'incident' ? 'bg-orange-100 text-orange-700' : 'bg-yellow-100 text-yellow-700'}`}>
                       {item.type.toUpperCase()}
                     </span>
                     <span className="text-xs text-gray-400">
-                      {new Date(item.created_at).toLocaleDateString()}
+                      {new Date(String(item.created_at)).toLocaleDateString()}
                     </span>
                   </div>
-                  <h3 className="text-lg font-bold text-gray-800 truncate">{item.title}</h3>
-                  <p className="text-sm text-gray-500 line-clamp-2 mt-1">{item.description}</p>
+                  <h3 className="text-lg font-bold text-gray-800 truncate">{String(item.title || "")}</h3>
+                  <p className="text-sm text-gray-500 line-clamp-2 mt-1">{String(item.description || "")}</p>
                 </div>
                 <div className="flex items-center gap-3">
                   <button className="px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-full transition-colors">
                     Reject
                   </button>
-                  <button className="px-6 py-2 bg-hse-red hover:bg-red-700 text-white font-medium rounded-full transition-colors shadow-lg shadow-red-500/30">
-                    Review
-                  </button>
+                  <Link href={`/dashboard/triage/${String(item.id)}?type=${item.type}`} className="px-6 py-2 bg-hse-red hover:bg-red-700 text-white font-medium rounded-full transition-colors shadow-lg shadow-red-500/30">Review</Link>
                 </div>
               </div>
             ))}
