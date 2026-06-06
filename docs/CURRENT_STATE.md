@@ -38,7 +38,7 @@
 ## Milestone 3.2 Status
 - [x] Task 1 (Backend): Buat endpoint pembuatan JSA yang kompleks. (Jsa models exist, and tables, but no explicit endpoint in routes/api.php for creation of JSA)
 - [x] Task 2 (Backend): Buat logika *Digital Signature* & rantai persetujuan (permit_approvals).
-- [ ] Task 3 (Web & Mobile): UI Pengajuan Izin Kerja.
+- [x] Task 3 (Web & Mobile): UI Pengajuan Izin Kerja.
 
 ## Milestone 3.3 Status
 - [x] Task 1 (Backend): Buat Model CorrectiveAction dengan relasi polimorfik (source_type, source_id).

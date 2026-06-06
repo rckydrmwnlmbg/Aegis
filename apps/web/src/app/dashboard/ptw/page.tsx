@@ -84,7 +84,7 @@ export default function PTWDashboard() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50/50 via-purple-50/50 to-pink-50/50 p-8">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl font-bold text-gray-800 mb-8 drop-shadow-sm">Permit to Work (PTW) Approval Queue</h1>
+        <div className="flex justify-between items-center mb-8"><h1 className="text-3xl font-bold text-gray-800 drop-shadow-sm">Permit to Work (PTW) Approval Queue</h1><a href="/dashboard/ptw/apply" className="px-6 py-3 bg-blue-600/90 text-white rounded-3xl backdrop-blur-md hover:bg-blue-600 transition-all font-semibold shadow-sm flex items-center justify-center">Apply for PTW</a></div>
 
         <div className="bg-white/60 backdrop-blur-xl rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.05)] border border-white/40 p-8">
           {loading ? (
