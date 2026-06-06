@@ -27,7 +27,7 @@
 
 ## Milestone 2.3 Status
 - [x] Task 1 (Mobile): Buat UI "Smart Capture".
-- [ ] Task 2 (Web): Buat tabel Triage Dashboard.
+- [x] Task 2 (Web): Buat tabel Triage Dashboard.
 - [ ] Task 3 (Web): Buat form *Review*.
 
 ## Phase 3 Status
