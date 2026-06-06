@@ -12,13 +12,13 @@ interface DataGridProps {
 
 export function DataGrid({ columns, data }: DataGridProps) {
   return (
-    <div className="glass-panel overflow-hidden">
+    <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="border-b border-white/20">
+            <tr className="border-b border-slate-100 bg-slate-50/50">
               {columns.map((col) => (
-                <th key={col.key} className="p-4 text-sm font-semibold text-gray-600">
+                <th key={col.key} className="p-4 px-6 text-xs font-bold text-slate-500 uppercase tracking-wider">
                   {col.header}
                 </th>
               ))}
@@ -26,12 +26,12 @@ export function DataGrid({ columns, data }: DataGridProps) {
           </thead>
           <tbody>
             {data.map((row, i) => (
-              <tr key={i} className="border-b border-white/10 hover:bg-white/30 transition-colors last:border-0">
+              <tr key={i} className="border-b border-slate-100 hover:bg-slate-50 transition-colors last:border-0">
                 {columns.map((col) => (
-                  <td key={col.key} className="p-4 text-sm text-gray-800">
+                  <td key={col.key} className="p-4 px-6 text-sm font-medium text-slate-700">
                     {col.key === 'status' ? (
-                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                        row[col.key] === 'Open' || row[col.key] === 'Pending' ? 'bg-hse-red/10 text-hse-red' : 'bg-emerald-500/10 text-emerald-600'
+                      <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+                        row[col.key] === 'Open' || row[col.key] === 'Pending' ? 'bg-red-50 text-hse-red' : 'bg-emerald-50 text-emerald-600'
                       }`}>
                         {row[col.key]}
                       </span>
