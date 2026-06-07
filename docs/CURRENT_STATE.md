@@ -58,7 +58,8 @@
 ## Milestone 4.3 Status
 - [x] Task 1 (Backend): Buat endpoint agregasi data.
 - [x] Task 2 (Web): Buat komponen *Chart* (Dashboard Widgets and Skeleton API Integration Completed).
-- [ ] Task 3 (DevOps): Susun Dockerfile dan CI/CD.
+- [x] Task 3 (Web): Dashboard Page Refactoring (Implemented Role-Based Access Control and distinct Bento Box UI for different Roles).
+- [ ] Task 4 (DevOps): Susun Dockerfile dan CI/CD.
 
 ## Known Deviations from Devplan
 - Codebase uses Laravel 13 instead of Laravel 11 (Documented in ADR-001).
@@ -68,6 +69,7 @@
 
 ## Completed Tasks
 - Task 7: Recorded Architecture Decision for Laravel Version Selection (ADR-001) in `docs/architecture-decision-records.md`.
+- Refactored `apps/web/src/app/dashboard/page.tsx` to strictly implement Role-Based UI Architecture derived from `docs/ux-architecture.md` using dummy user role variable and Tailwind CSS Bento Box principles.
 
 ## File Inventory
 
