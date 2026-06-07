@@ -33,17 +33,24 @@ class SyncPayloadAction {
 
             if ($attachmentIds) {
                 $attachmentIds = array_unique($attachmentIds);
+                $linksData = [];
+                $now = now();
                 foreach ($attachmentIds as $attachmentId) {
-                    $link = new AttachmentLink();
-                    $link->id = Str::uuid()->toString();
-                    $link->tenant_id = $tenantId;
-                    $link->attachment_id = $attachmentId;
-                    $link->domain = $workflowDomain;
-                    $link->entity_type = 'ai_runs';
-                    $link->entity_id = $aiRunId;
-                    $link->linkage_type = 'sync_evidence';
-                    $link->linked_by = $userId;
-                    $link->save();
+                    $linksData[] = [
+                        'id' => Str::uuid()->toString(),
+                        'tenant_id' => $tenantId,
+                        'attachment_id' => $attachmentId,
+                        'domain' => $workflowDomain,
+                        'entity_type' => 'ai_runs',
+                        'entity_id' => $aiRunId,
+                        'linkage_type' => 'sync_evidence',
+                        'linked_by' => $userId,
+                        'linked_at' => $now,
+                    ];
+                }
+
+                if (!empty($linksData)) {
+                    AttachmentLink::insert($linksData);
                 }
             }
 
