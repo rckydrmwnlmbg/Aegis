@@ -170,4 +170,4 @@
 - Task 8: Changed Database stack to strictly use PostgreSQL. Fixed `DB_CONNECTION` in `apps/api/.env`.
 - Task 8: Removed frontend Next.js login bypass and integrated with the actual Laravel backend API for Authentication.
 
-- Modified `apps/api/database/seeders/DatabaseSeeder.php` to create demo users for all available roles, using the format `[role]@demo.com` and password `password123`.
+- Modified `apps/api/database/seeders/DatabaseSeeder.php` to create demo users for all available roles, using the format `[role]@demo.com` and password `password123`.- [x] Task 1 (Web): Implement Hazards Page Dashboard (`/dashboard/hazards`) using Next.js, Tailwind CSS, Bento Box UI.
