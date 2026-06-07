@@ -2,9 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\AppUser;
+use App\Models\Role;
+use App\Models\Tenant;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,11 +18,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $tenant = Tenant::firstOrCreate(['tenant_code' => 'AEGIS'], [
+            'name' => 'Aegis System',
+            'status' => 'active',
+            'deployment_mode' => 'saas',
         ]);
+
+        $role = Role::firstOrCreate(['name' => 'HSE_MANAGER', 'guard_name' => 'web', 'tenant_id' => $tenant->id]);
+
+        $user = AppUser::firstOrCreate(
+            ['email' => 'admin@aegis.system'],
+            [
+                'name' => 'Ricky Darmawan',
+                'password' => \Illuminate\Support\Facades\Hash::make('password123'),
+                'tenant_id' => $tenant->id
+            ]
+        );
+
+        $user->assignRole($role);
     }
 }
