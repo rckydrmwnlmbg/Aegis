@@ -15,7 +15,13 @@ import {
   Ear,
   Wind,
   ShieldAlert,
-  Footprints
+  Footprints,
+  Briefcase,
+  MapPin,
+  CalendarClock,
+  UserCheck,
+  ClipboardCheck,
+  Stamp
 } from 'lucide-react';
 
 export default function ApplyPTW() {
@@ -104,33 +110,41 @@ export default function ApplyPTW() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 p-6 md:p-8">
-      <div className="max-w-5xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">Permit to Work Application</h1>
-          <p className="text-slate-500 mt-2">Complete the form below to apply for a new work permit.</p>
+    <div className="min-h-screen bg-slate-50 p-4 md:p-8">
+      <div className="max-w-6xl mx-auto">
+        <div className="mb-8 flex items-center gap-4">
+          <div className="bg-slate-900 p-3 rounded-2xl shadow-sm">
+            <ShieldAlert className="w-8 h-8 text-white" />
+          </div>
+          <div>
+            <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">Permit to Work (PTW) Form</h1>
+            <p className="text-slate-500 mt-1 font-medium">HSE Enterprise Standard Document • Complete all mandatory fields.</p>
+          </div>
         </div>
 
-        <div className="bg-white rounded-3xl shadow-sm p-6 md:p-10 border border-slate-200/60">
-          {error && (
-            <div className="mb-8 p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 flex items-center gap-3">
-              <ShieldAlert className="w-5 h-5" />
-              <span className="font-medium">{error}</span>
-            </div>
-          )}
+        {error && (
+          <div className="mb-6 p-4 rounded-2xl bg-red-50 border border-red-200 text-red-700 flex items-center gap-3 shadow-sm">
+            <ShieldAlert className="w-5 h-5 flex-shrink-0" />
+            <span className="font-bold">{error}</span>
+          </div>
+        )}
 
-          <form className="space-y-10">
+        {/* BENTO BOX CONTAINER */}
+        <div className="bg-white rounded-3xl shadow-sm p-6 md:p-10">
+
+          <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
             {/* SECTION 1 - GENERAL INFO */}
-            <section>
-              <div className="mb-6 pb-2 border-b border-slate-100">
-                <h2 className="text-lg font-bold text-slate-800 flex items-center gap-2">
-                  <span className="bg-slate-900 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">1</span>
-                  General Information
-                </h2>
+            <div className="col-span-1 md:col-span-2 bg-slate-50 rounded-2xl p-6 border border-slate-100">
+              <div className="mb-6 flex items-center gap-3">
+                <span className="bg-slate-900 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm shadow-sm">1</span>
+                <h2 className="text-xl font-extrabold text-slate-800 uppercase tracking-wide">General Information</h2>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="title" className="block text-sm font-semibold text-slate-700 mb-2">Job Title</label>
+                  <label htmlFor="title" className="flex items-center gap-2 text-sm font-bold text-slate-700 mb-2 uppercase tracking-wider text-xs">
+                    <Briefcase className="w-4 h-4" /> Job Title
+                  </label>
                   <input
                     type="text"
                     id="title"
@@ -138,12 +152,14 @@ export default function ApplyPTW() {
                     required
                     value={formData.title}
                     onChange={handleChange}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all"
-                    placeholder="E.g., Welding on Main Pipe"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all shadow-sm"
+                    placeholder="e.g., Welding on Main Pipe"
                   />
                 </div>
                 <div>
-                  <label htmlFor="location" className="block text-sm font-semibold text-slate-700 mb-2">Location / Area</label>
+                  <label htmlFor="location" className="flex items-center gap-2 text-sm font-bold text-slate-700 mb-2 uppercase tracking-wider text-xs">
+                    <MapPin className="w-4 h-4" /> Location / Area
+                  </label>
                   <input
                     type="text"
                     id="location"
@@ -151,12 +167,14 @@ export default function ApplyPTW() {
                     required
                     value={formData.location}
                     onChange={handleChange}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all"
-                    placeholder="E.g., Sector 4, Plant B"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all shadow-sm"
+                    placeholder="e.g., Sector 4, Plant B"
                   />
                 </div>
                 <div>
-                  <label htmlFor="valid_from" className="block text-sm font-semibold text-slate-700 mb-2">Valid From</label>
+                  <label htmlFor="valid_from" className="flex items-center gap-2 text-sm font-bold text-slate-700 mb-2 uppercase tracking-wider text-xs">
+                    <CalendarClock className="w-4 h-4" /> Valid From
+                  </label>
                   <input
                     type="datetime-local"
                     id="valid_from"
@@ -164,11 +182,13 @@ export default function ApplyPTW() {
                     required
                     value={formData.valid_from}
                     onChange={handleChange}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all shadow-sm"
                   />
                 </div>
                 <div>
-                  <label htmlFor="valid_until" className="block text-sm font-semibold text-slate-700 mb-2">Valid Until</label>
+                  <label htmlFor="valid_until" className="flex items-center gap-2 text-sm font-bold text-slate-700 mb-2 uppercase tracking-wider text-xs">
+                    <CalendarClock className="w-4 h-4" /> Valid Until
+                  </label>
                   <input
                     type="datetime-local"
                     id="valid_until"
@@ -176,21 +196,19 @@ export default function ApplyPTW() {
                     required
                     value={formData.valid_until}
                     onChange={handleChange}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all shadow-sm"
                   />
                 </div>
               </div>
-            </section>
+            </div>
 
             {/* SECTION 2 - PERMIT CATEGORY */}
-            <section>
-              <div className="mb-6 pb-2 border-b border-slate-100">
-                <h2 className="text-lg font-bold text-slate-800 flex items-center gap-2">
-                   <span className="bg-slate-900 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">2</span>
-                  Permit Category
-                </h2>
+            <div className="col-span-1 md:col-span-2 bg-slate-50 rounded-2xl p-6 border border-slate-100">
+              <div className="mb-6 flex items-center gap-3">
+                <span className="bg-slate-900 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm shadow-sm">2</span>
+                <h2 className="text-xl font-extrabold text-slate-800 uppercase tracking-wide">Permit Category</h2>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                 {permitCategories.map((cat) => {
                   const Icon = cat.icon;
                   const isSelected = formData.permit_category === cat.value;
@@ -199,8 +217,8 @@ export default function ApplyPTW() {
                       key={cat.value}
                       className={`cursor-pointer flex flex-col items-center justify-center p-4 rounded-2xl border-2 transition-all ${
                         isSelected
-                          ? 'border-slate-900 bg-slate-900 text-white'
-                          : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
+                          ? 'border-slate-900 bg-slate-900 text-white shadow-md'
+                          : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-100 shadow-sm'
                       }`}
                     >
                       <input
@@ -212,64 +230,60 @@ export default function ApplyPTW() {
                         className="sr-only"
                       />
                       <Icon className="w-8 h-8 mb-3" />
-                      <span className="text-sm font-semibold text-center leading-tight">{cat.label}</span>
+                      <span className="text-sm font-extrabold text-center leading-tight">{cat.label}</span>
                     </label>
                   );
                 })}
               </div>
-            </section>
+            </div>
 
             {/* SECTION 3 - HAZARDS (JSA) */}
-            <section>
-              <div className="mb-6 pb-2 border-b border-slate-100">
-                <h2 className="text-lg font-bold text-slate-800 flex items-center gap-2">
-                   <span className="bg-slate-900 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">3</span>
-                  Hazard Identification (JSA)
-                </h2>
+            <div className="col-span-1 bg-slate-50 rounded-2xl p-6 border border-slate-100 flex flex-col">
+              <div className="mb-6 flex items-center gap-3">
+                <span className="bg-slate-900 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm shadow-sm">3</span>
+                <h2 className="text-xl font-extrabold text-slate-800 uppercase tracking-wide">Hazard ID (JSA)</h2>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+              <div className="grid grid-cols-1 gap-3 mb-6 flex-grow">
                 {hazardList.map((hazard) => (
-                  <label key={hazard} className="flex items-center gap-3 p-3 rounded-xl border border-slate-200 bg-slate-50 cursor-pointer hover:bg-slate-100 transition-colors">
+                  <label key={hazard} className="flex items-center gap-4 p-3.5 rounded-xl border border-slate-200 bg-white cursor-pointer hover:bg-slate-50 transition-colors shadow-sm group">
                     <input
                       type="checkbox"
                       checked={formData.hazards.includes(hazard)}
                       onChange={() => handleCheckboxChange('hazards', hazard)}
                       className="w-5 h-5 text-slate-900 border-slate-300 rounded focus:ring-slate-900"
                     />
-                    <span className="font-medium text-slate-700">{hazard}</span>
+                    <span className="font-bold text-slate-700 group-hover:text-slate-900">{hazard}</span>
                   </label>
                 ))}
               </div>
-              <div>
-                <label htmlFor="risk_mitigation" className="block text-sm font-semibold text-slate-700 mb-2">Risk Mitigation Plan</label>
+              <div className="mt-auto">
+                <label htmlFor="risk_mitigation" className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wider text-xs">Risk Mitigation Plan</label>
                 <textarea
                   id="risk_mitigation"
                   name="risk_mitigation"
                   rows={4}
                   value={formData.risk_mitigation}
                   onChange={handleChange}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all"
-                  placeholder="Detail the steps taken to mitigate the identified risks..."
+                  className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all shadow-sm"
+                  placeholder="Detail strict steps taken to mitigate risks..."
                 />
               </div>
-            </section>
+            </div>
 
             {/* SECTION 4 - PPE */}
-            <section>
-              <div className="mb-6 pb-2 border-b border-slate-100">
-                <h2 className="text-lg font-bold text-slate-800 flex items-center gap-2">
-                   <span className="bg-slate-900 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">4</span>
-                  Mandatory PPE
-                </h2>
+            <div className="col-span-1 bg-slate-50 rounded-2xl p-6 border border-slate-100 flex flex-col">
+              <div className="mb-6 flex items-center gap-3">
+                <span className="bg-slate-900 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm shadow-sm">4</span>
+                <h2 className="text-xl font-extrabold text-slate-800 uppercase tracking-wide">Mandatory PPE</h2>
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-grow">
                 {ppeList.map((ppe) => {
                   const Icon = ppe.icon;
                   const isChecked = formData.ppe.includes(ppe.value);
                   return (
-                    <label key={ppe.value} className={`cursor-pointer flex items-center gap-3 p-4 rounded-xl border transition-all ${
+                    <label key={ppe.value} className={`cursor-pointer flex items-center gap-3 p-4 rounded-xl border transition-all shadow-sm ${
                       isChecked
-                        ? 'border-slate-900 bg-slate-50 ring-1 ring-slate-900'
+                        ? 'border-slate-900 bg-white ring-2 ring-slate-900'
                         : 'border-slate-200 bg-white hover:bg-slate-50'
                     }`}>
                       <input
@@ -278,33 +292,33 @@ export default function ApplyPTW() {
                         onChange={() => handleCheckboxChange('ppe', ppe.value)}
                         className="sr-only"
                       />
-                      <div className={`p-2 rounded-lg ${isChecked ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-500'}`}>
+                      <div className={`p-2.5 rounded-lg ${isChecked ? 'bg-slate-900 text-white shadow-md' : 'bg-slate-100 text-slate-500'}`}>
                         <Icon className="w-5 h-5" />
                       </div>
-                      <span className={`font-semibold ${isChecked ? 'text-slate-900' : 'text-slate-600'}`}>{ppe.value}</span>
+                      <span className={`font-extrabold text-sm ${isChecked ? 'text-slate-900' : 'text-slate-600'}`}>{ppe.value}</span>
                     </label>
                   );
                 })}
               </div>
-            </section>
+            </div>
 
             {/* SECTION 5 - AUTHORIZATION */}
-            <section>
-              <div className="mb-6 pb-2 border-b border-slate-100">
-                <h2 className="text-lg font-bold text-slate-800 flex items-center gap-2">
-                   <span className="bg-slate-900 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">5</span>
-                  Authorization Chain
-                </h2>
+            <div className="col-span-1 md:col-span-2 bg-slate-900 rounded-2xl p-6 shadow-md text-white">
+              <div className="mb-6 flex items-center gap-3">
+                <span className="bg-white text-slate-900 w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm shadow-sm">5</span>
+                <h2 className="text-xl font-extrabold uppercase tracking-wide">Authorization Chain</h2>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
-                  <label htmlFor="applicant_name" className="block text-sm font-semibold text-slate-700 mb-2">Applicant Name</label>
+                  <label htmlFor="applicant_name" className="flex items-center gap-2 text-sm font-bold text-slate-300 mb-2 uppercase tracking-wider text-xs">
+                    <UserCheck className="w-4 h-4" /> Applicant Name
+                  </label>
                   <select
                     id="applicant_name"
                     name="applicant_name"
                     value={formData.applicant_name}
                     onChange={handleChange}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all appearance-none"
+                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white font-medium focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-all appearance-none"
                   >
                     <option value="">Select Applicant</option>
                     <option value="john_doe">John Doe</option>
@@ -312,13 +326,15 @@ export default function ApplyPTW() {
                   </select>
                 </div>
                 <div>
-                  <label htmlFor="safety_officer" className="block text-sm font-semibold text-slate-700 mb-2">Safety Officer Reviewer</label>
+                  <label htmlFor="safety_officer" className="flex items-center gap-2 text-sm font-bold text-slate-300 mb-2 uppercase tracking-wider text-xs">
+                    <ClipboardCheck className="w-4 h-4" /> Safety Officer Reviewer
+                  </label>
                   <select
                     id="safety_officer"
                     name="safety_officer"
                     value={formData.safety_officer}
                     onChange={handleChange}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all appearance-none"
+                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white font-medium focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-all appearance-none"
                   >
                     <option value="">Select Safety Officer</option>
                     <option value="michael_scott">Michael Scott</option>
@@ -326,13 +342,15 @@ export default function ApplyPTW() {
                   </select>
                 </div>
                 <div>
-                  <label htmlFor="site_manager" className="block text-sm font-semibold text-slate-700 mb-2">Site Manager Approver</label>
+                  <label htmlFor="site_manager" className="flex items-center gap-2 text-sm font-bold text-slate-300 mb-2 uppercase tracking-wider text-xs">
+                    <Stamp className="w-4 h-4" /> Site Manager Approver
+                  </label>
                   <select
                     id="site_manager"
                     name="site_manager"
                     value={formData.site_manager}
                     onChange={handleChange}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all appearance-none"
+                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white font-medium focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-all appearance-none"
                   >
                     <option value="">Select Site Manager</option>
                     <option value="dwight_schrute">Dwight Schrute</option>
@@ -340,15 +358,15 @@ export default function ApplyPTW() {
                   </select>
                 </div>
               </div>
-            </section>
+            </div>
 
             {/* ACTION BUTTONS */}
-            <div className="pt-8 mt-8 border-t border-slate-200 flex flex-col sm:flex-row justify-end items-center gap-4">
+            <div className="col-span-1 md:col-span-2 pt-6 mt-4 flex flex-col sm:flex-row justify-end items-center gap-4">
                <button
                 type="button"
                 onClick={(e) => handleSubmit(e, true)}
                 disabled={loading}
-                className="w-full sm:w-auto px-8 py-3.5 bg-slate-100 text-slate-700 rounded-xl hover:bg-slate-200 transition-all font-bold focus:outline-none focus:ring-2 focus:ring-slate-200"
+                className="w-full sm:w-auto px-8 py-3.5 bg-slate-100 text-slate-700 rounded-xl hover:bg-slate-200 transition-all font-extrabold focus:outline-none focus:ring-2 focus:ring-slate-300"
               >
                 Save Draft
               </button>
@@ -356,7 +374,7 @@ export default function ApplyPTW() {
                 type="button"
                 onClick={(e) => handleSubmit(e, false)}
                 disabled={loading}
-                className="w-full sm:w-auto px-8 py-3.5 bg-slate-900 text-white rounded-xl hover:bg-slate-800 transition-all font-bold shadow-md shadow-slate-900/20 flex items-center justify-center min-w-[200px] focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
+                className="w-full sm:w-auto px-8 py-3.5 bg-slate-900 text-white rounded-xl hover:bg-slate-800 transition-all font-extrabold shadow-lg shadow-slate-900/30 flex items-center justify-center min-w-[200px] focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2 uppercase tracking-wide text-sm"
               >
                 {loading ? (
                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
@@ -365,6 +383,7 @@ export default function ApplyPTW() {
                 )}
               </button>
             </div>
+
           </form>
         </div>
       </div>
