@@ -18,6 +18,7 @@ class AppUser extends Authenticatable
 
     protected $fillable = [
         'tenant_id',
+        'name',
         'email',
         'password',
         'external_identity_id',

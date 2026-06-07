@@ -4,21 +4,43 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import { motion } from 'framer-motion';
+import axios from 'axios';
 
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setErrorMsg('');
 
     try {
-      // Bypass API call for testing
-      Cookies.set('token', 'bypass-token', { expires: 7 });
+      const response = await axios.post('http://127.0.0.1:8000/api/v1/auth/login', {
+        email,
+        password,
+        device_name: 'web-browser',
+      }, {
+        headers: {
+          'Accept': 'application/json',
+        }
+      });
+
+      const token = response.data.data.token;
+
+      Cookies.set('token', token, { expires: 7 });
       router.push('/dashboard');
+    } catch (error: any) {
+      if (error.response?.data?.error?.message) {
+        setErrorMsg(error.response.data.error.message);
+      } else if (error.response?.data?.message) {
+        setErrorMsg(error.response.data.message);
+      } else {
+        setErrorMsg('Authentication failed. Please check your credentials.');
+      }
     } finally {
       setLoading(false);
     }
@@ -62,6 +84,12 @@ export default function LoginPage() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
+            {errorMsg && (
+              <div className="p-4 bg-red-50 border border-red-200 text-red-600 rounded-xl font-medium text-sm">
+                {errorMsg}
+              </div>
+            )}
+
             <div>
               <label className="block text-sm font-bold text-slate-900 mb-2 uppercase tracking-wide">
                 Email Address

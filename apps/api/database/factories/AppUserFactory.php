@@ -26,6 +26,7 @@ class AppUserFactory extends Factory
     {
         return [
             'tenant_id' => Tenant::factory(),
+            'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'password' => static::$password ??= Hash::make('password'),
         ];

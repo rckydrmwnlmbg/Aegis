@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('app_users', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('tenant_id');
+            $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
             $table->string('external_identity_id')->nullable();

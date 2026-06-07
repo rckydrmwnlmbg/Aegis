@@ -165,3 +165,5 @@
 - Feature/Api/V1/AttachmentTest.php
 - TestCase.php
 - Unit/ExampleTest.php
+- Task 8: Changed Database stack to strictly use PostgreSQL. Fixed `DB_CONNECTION` in `apps/api/.env`.
+- Task 8: Removed frontend Next.js login bypass and integrated with the actual Laravel backend API for Authentication.
