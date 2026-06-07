@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import { motion } from 'framer-motion';
-import axios, { isAxiosError } from 'axios';
+import { isAxiosError } from 'axios';
+import api from '@/lib/api';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -19,7 +20,7 @@ export default function LoginPage() {
     setErrorMsg('');
 
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/v1/auth/login', {
+      const response = await api.post('/api/v1/auth/login', {
         email,
         password,
         device_name: 'web-browser',
