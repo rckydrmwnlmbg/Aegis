@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import { motion } from 'framer-motion';
-import axios from 'axios';
+import axios, { isAxiosError } from 'axios';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -33,13 +33,17 @@ export default function LoginPage() {
 
       Cookies.set('token', token, { expires: 7 });
       router.push('/dashboard');
-    } catch (error: any) {
-      if (error.response?.data?.error?.message) {
-        setErrorMsg(error.response.data.error.message);
-      } else if (error.response?.data?.message) {
-        setErrorMsg(error.response.data.message);
+    } catch (error: unknown) {
+      if (isAxiosError(error)) {
+        if (error.response?.data?.error?.message) {
+          setErrorMsg(error.response.data.error.message);
+        } else if (error.response?.data?.message) {
+          setErrorMsg(error.response.data.message);
+        } else {
+          setErrorMsg('Authentication failed. Please check your credentials.');
+        }
       } else {
-        setErrorMsg('Authentication failed. Please check your credentials.');
+          setErrorMsg('An unexpected error occurred.');
       }
     } finally {
       setLoading(false);
