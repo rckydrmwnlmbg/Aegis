@@ -1,4 +1,8 @@
-import React from 'react';
+'use client';
+import React, { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
+import api from '@/lib/api';
+import { useRouter } from 'next/navigation';
 
 // Source of Truth: docs/ux-architecture.md -> Canonical Base Roles
 type Role =
@@ -11,9 +15,35 @@ type Role =
   | 'AUDITOR_EXTERNAL';
 
 // Dummy variable as requested
-const currentUserRole: Role = 'HSE_MANAGER';
+
 
 export default function DashboardPage() {
+  const [currentUserRole, setCurrentUserRole] = useState<Role | null>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = Cookies.get('token');
+    if (!token) {
+      router.push('/login');
+      return;
+    }
+
+    api.get('/auth/me').then(res => {
+      const roles = res.data.data.roles;
+      if (roles && roles.length > 0) {
+        setCurrentUserRole(roles[0]);
+      } else {
+        setCurrentUserRole('FIELD_WORKER'); // fallback
+      }
+    }).catch(() => {
+      Cookies.remove('token');
+      router.push('/login');
+    });
+  }, [router]);
+
+  if (!currentUserRole) {
+    return <div className="p-12 text-center text-slate-400 font-bold animate-pulse text-xl">Loading Dashboard...</div>;
+  }
   return (
     <div className="max-w-[1600px] mx-auto pb-12">
       <header className="flex justify-between items-end mb-8">

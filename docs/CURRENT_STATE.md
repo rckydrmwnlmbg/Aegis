@@ -171,3 +171,4 @@
 - Task 8: Removed frontend Next.js login bypass and integrated with the actual Laravel backend API for Authentication.
 
 - Modified `apps/api/database/seeders/DatabaseSeeder.php` to create demo users for all available roles, using the format `[role]@demo.com` and password `password123`.
+- Fixed Next.js frontend login using the configured Next.js `api` instance (pointing to Laravel). Also connected the `/dashboard` page to resolve UI views based on the authenticated user's role via the `/auth/me` endpoint dynamically.
