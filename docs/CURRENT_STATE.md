@@ -68,6 +68,7 @@
 - Next.js Web frontend has been initialized in `apps/web`.
 
 ## Completed Tasks
+- Task (Phase 1, Pilar 1): Reviewed and validated database migrations requested by the user. Mapped requested non-canonical table names (`ptw_requests`, `capa_reports`, `knowledge_base_vectors`) to the already implemented Canonical Schema architecture (`permit_to_works`, `corrective_actions`, `knowledge_documents` + `pgvector`) in adherence to `schema.md` and `FR-*.md` documents to prevent cross-domain pollution and maintain the Source of Truth.
 - Task 7: Recorded Architecture Decision for Laravel Version Selection (ADR-001) in `docs/architecture-decision-records.md`.
 - Refactored `apps/web/src/app/dashboard/page.tsx` to strictly implement Role-Based UI Architecture derived from `docs/ux-architecture.md` using dummy user role variable and Tailwind CSS Bento Box principles.
 - Built Incidents List Page (`/dashboard/incidents`) and Incident Detail Page (`/dashboard/incidents/[id]`) strictly using pure Tailwind CSS and Bento Box Architecture.
