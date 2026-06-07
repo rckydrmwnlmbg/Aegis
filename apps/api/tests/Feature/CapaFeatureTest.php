@@ -138,4 +138,32 @@ class CapaFeatureTest extends TestCase
             'action_type' => 'capa.verify'
         ]);
     }
+
+    public function test_cannot_create_capa_for_other_tenant()
+    {
+        $otherTenant = Tenant::create(['tenant_code' => 'TEST-002', 'name' => 'Other Tenant']);
+
+        $response = $this->postJson('/api/v1/capa', [
+            'tenant_id' => $otherTenant->id,
+            'title' => 'Malicious Capa',
+            'source_type' => Incident::class,
+            'source_id' => $this->incident->id,
+            'owner_id' => $this->user->id,
+        ]);
+
+        $response->assertStatus(201);
+
+        // Assert that the CAPA was created with the authenticated user's tenant_id,
+        // and NOT the other tenant's ID that was passed in the request.
+        $this->assertDatabaseHas('corrective_actions', [
+            'title' => 'Malicious Capa',
+            'tenant_id' => $this->tenant->id,
+        ]);
+
+        $this->assertDatabaseMissing('corrective_actions', [
+            'title' => 'Malicious Capa',
+            'tenant_id' => $otherTenant->id,
+        ]);
+    }
+
 }

@@ -38,7 +38,13 @@ class CapaController extends Controller
             ], 422);
         }
 
-        $capa = $action->execute($request->all(), $request->user()->id);
+        $validatedData = $validator->validated();
+
+        // Security Fix: Override any provided tenant_id with the authenticated user's tenant_id
+        // to prevent Cross-Tenant Leakage via Mass Assignment.
+        $validatedData['tenant_id'] = $request->user()->tenant_id;
+
+        $capa = $action->execute($validatedData, $request->user()->id);
 
         return response()->json([
             'data' => $capa,
