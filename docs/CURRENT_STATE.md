@@ -73,6 +73,7 @@
 - Refactored `apps/web/src/app/dashboard/page.tsx` to strictly implement Role-Based UI Architecture derived from `docs/ux-architecture.md` using dummy user role variable and Tailwind CSS Bento Box principles.
 - Built Incidents List Page (`/dashboard/incidents`) and Incident Detail Page (`/dashboard/incidents/[id]`) strictly using pure Tailwind CSS and Bento Box Architecture.
 
+- [x] Task (Phase 2, Pilar 2): Implement RESTful API Controllers and Routing for PTW, Incidents, and CAPA.
 ## File Inventory
 
 ### Migrations
