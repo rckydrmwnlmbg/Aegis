@@ -3,57 +3,41 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Models\AiRun;
-use App\Services\HseCopilotService;
+use App\Services\AiService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use Illuminate\Http\JsonResponse;
 
 class CopilotController extends Controller
 {
-    private HseCopilotService $copilotService;
+    private AiService $aiService;
 
-    public function __construct(HseCopilotService $copilotService)
+    public function __construct(AiService $aiService)
     {
-        $this->copilotService = $copilotService;
+        $this->aiService = $aiService;
     }
 
-    public function ask(Request $request)
+    /**
+     * Handle RAG Chat requests.
+     */
+    public function chat(Request $request): JsonResponse
     {
-        $validated = $request->validate([
-            'question' => 'required|string|max:1000',
+        $request->validate([
+            'message' => 'required|string|max:2000',
         ]);
 
-        $question = $validated['question'];
+        $message = $request->input('message');
 
-        $startTime = microtime(true);
-        $answer = $this->copilotService->askQuestion($question);
-        $latencyMs = round((microtime(true) - $startTime) * 1000);
+        // Logic handled strictly in Service (Architecture Rule)
+        $reply = $this->aiService->answerWithRag($message);
 
-        // Track in ai_runs
-        $aiRunId = Str::uuid();
-        AiRun::create([
-            'id' => $aiRunId,
-            'tenant_id' => auth()->user()->tenant_id,
-            'actor_id' => auth()->id(),
-            'use_case' => 'copilot',
-            'workflow_entity_id' => $aiRunId, // Using run ID since copilot is not tied to a specific entity creation like incident
-            'payload' => [
-                'input_summary' => Str::limit($question, 500),
-                'output_summary' => Str::limit($answer, 500),
-                'model_used' => 'claude-3-haiku-20240307',
-                'latency_ms' => $latencyMs,
-            ],
-            'status' => 'completed',
-        ]);
-
+        // Canonical JSON Envelope
         return response()->json([
             'data' => [
-                'answer' => $answer,
+                'reply' => $reply,
             ],
             'meta' => [
-                'correlation_id' => (string) Str::uuid(), // Using UUID directly instead of Log context for now
-                'latency_ms' => $latencyMs,
+                'timestamp' => now()->toIso8601String(),
             ]
-        ]);
+        ], 200);
     }
 }

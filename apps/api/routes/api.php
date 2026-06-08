@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\V1\PtwController;
 use App\Http\Controllers\Api\V1\IncidentController;
 use App\Http\Controllers\Api\V1\CapaController;
 use App\Http\Controllers\Api\V1\SyncController;
+use App\Http\Controllers\Api\V1\CopilotController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/v1/capa/{id}', [CapaController::class, 'show']);
     Route::post('/v1/capa', [CapaController::class, 'store']);
     Route::put('/v1/capa/{id}/status', [CapaController::class, 'updateStatus']);
+
+
+    // Copilot
+    Route::post('/v1/copilot/chat', [CopilotController::class, 'chat']);
 
     // Sync Endpoint for offline-first (referenced in phase 2 plan)
     Route::post('/v1/sync/incidents', [SyncController::class, 'incidents']);
