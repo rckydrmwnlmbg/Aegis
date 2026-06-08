@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Actions\Incident\UpdateIncidentAction;
 use App\Http\Requests\UpdateIncidentRequest;
+use App\Http\Requests\StoreIncidentRequest;
+use App\Http\Requests\UpdateIncidentSeverityRequest;
 use Illuminate\Support\Str;
 
 class IncidentController extends Controller
@@ -64,6 +66,35 @@ class IncidentController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage (Triage).
+     */
+    public function store(StoreIncidentRequest $request): JsonResponse
+    {
+        $validated = $request->validated();
+
+        $incident = Incident::create([
+            'id' => $validated['id'],
+            'tenant_id' => $request->user()->tenant_id,
+            'title' => $validated['title'],
+            'summary' => $validated['summary'],
+            'incident_type' => $validated['incident_type'],
+            'occurred_at' => $validated['occurred_at'],
+            'reported_at' => now(),
+            'reported_by' => $request->user()->id,
+            'location_reference' => $validated['location_reference'] ?? null,
+            'status' => 'draft',
+        ]);
+
+        return response()->json([
+            'data' => $incident,
+            'meta' => [
+                'correlation_id' => request()->header('X-Correlation-ID', Str::uuid()->toString()),
+                'timestamp' => now()->toIso8601String()
+            ]
+        ], 201);
+    }
+
+    /**
      * Update the specified resource in storage.
      */
     public function update(UpdateIncidentRequest $request, string $id, UpdateIncidentAction $action): JsonResponse
@@ -74,6 +105,24 @@ class IncidentController extends Controller
 
         return response()->json([
             'data' => $updatedIncident,
+            'meta' => [
+                'correlation_id' => request()->header('X-Correlation-ID', Str::uuid()->toString()),
+                'timestamp' => now()->toIso8601String()
+            ]
+        ]);
+    }
+
+    /**
+     * Update the severity of the incident.
+     */
+    public function updateSeverity(UpdateIncidentSeverityRequest $request, string $id): JsonResponse
+    {
+        $incident = Incident::findOrFail($id);
+        $incident->severity_status = $request->validated('severity_status');
+        $incident->save();
+
+        return response()->json([
+            'data' => $incident,
             'meta' => [
                 'correlation_id' => request()->header('X-Correlation-ID', Str::uuid()->toString()),
                 'timestamp' => now()->toIso8601String()

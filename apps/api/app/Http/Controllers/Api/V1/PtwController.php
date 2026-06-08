@@ -6,14 +6,51 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePtwRequest;
 use App\Http\Requests\UpdatePtwStatusRequest;
 use App\Models\PtwDocument;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class PtwController extends Controller
 {
+    public function index(Request $request): JsonResponse
+    {
+        $query = PtwDocument::query();
+
+        if ($request->has('status')) {
+            $query->where('status', $request->query('status'));
+        }
+
+        $perPage = $request->query('per_page', 15);
+        $ptws = $query->with('jsaSteps')->paginate($perPage);
+
+        return response()->json([
+            'data' => $ptws->items(),
+            'meta' => [
+                'current_page' => $ptws->currentPage(),
+                'last_page' => $ptws->lastPage(),
+                'per_page' => $ptws->perPage(),
+                'total' => $ptws->total(),
+            ]
+        ]);
+    }
+
+    public function show(string $id): JsonResponse
+    {
+        $ptw = PtwDocument::with('jsaSteps')->findOrFail($id);
+
+        return response()->json([
+            'data' => $ptw,
+            'meta' => [
+                'correlation_id' => request()->header('X-Correlation-ID', Str::uuid()->toString()),
+                'timestamp' => now()->toIso8601String()
+            ]
+        ]);
+    }
+
     public function store(StorePtwRequest $request): JsonResponse
     {
         $validated = $request->validated();
