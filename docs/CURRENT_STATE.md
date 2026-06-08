@@ -74,6 +74,9 @@
 - Built Incidents List Page (`/dashboard/incidents`) and Incident Detail Page (`/dashboard/incidents/[id]`) strictly using pure Tailwind CSS and Bento Box Architecture.
 
 - [x] Task (Phase 2, Pilar 2): Implement RESTful API Controllers and Routing for PTW, Incidents, and CAPA.
+
+- [x] Task (Backend): Implement AiService, CopilotController, and POST /api/v1/copilot/chat for RAG integration.
+
 ## File Inventory
 
 ### Migrations
