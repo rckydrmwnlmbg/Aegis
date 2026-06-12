@@ -28,14 +28,16 @@ class PermitToWorkFeatureTest extends TestCase
 
         $this->tenant = Tenant::create(['name' => 'Test Tenant', 'tenant_code' => 'TEST']);
 
-        $this->requester = AppUser::create([
+        $this->requester = AppUser::factory()->create([
             'tenant_id' => $this->tenant->id,
+            'name' => 'Requester User',
             'email' => 'requester@test.com',
             'password' => bcrypt('password'),
         ]);
 
-        $this->approver = AppUser::create([
+        $this->approver = AppUser::factory()->create([
             'tenant_id' => $this->tenant->id,
+            'name' => 'Approver User',
             'email' => 'approver@test.com',
             'password' => bcrypt('password'),
         ]);

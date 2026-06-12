@@ -25,7 +25,7 @@ class CapaFeatureTest extends TestCase
         parent::setUp();
 
         $this->tenant = Tenant::create(['tenant_code' => 'TEST-001', 'name' => 'Test Tenant']);
-        $this->user = AppUser::create([
+        $this->user = AppUser::factory()->create([
             'tenant_id' => $this->tenant->id,
             'name' => 'Test User',
             'email' => 'test@example.com',

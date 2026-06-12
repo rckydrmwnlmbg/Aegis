@@ -9,13 +9,13 @@ use App\Models\AppUser;
 use Illuminate\Support\Str;
 
 $tenant = Tenant::create(['id' => Str::uuid()->toString(), 'tenant_code' => Str::random(10), 'name' => 'T']);
-$user = AppUser::create(['id' => Str::uuid()->toString(), 'tenant_id' => $tenant->id, 'email' => Str::random(10).'@e.com', 'password' => 'x']);
+$user = AppUser::factory()->create(['id' => Str::uuid()->toString(), 'tenant_id' => $tenant->id, 'email' => Str::random(10).'@e.com', 'password' => 'x']);
 
 $uuid = Str::uuid()->toString();
 $payload = ['id' => $uuid, 'notes' => 'hi'];
 
 $tenantB = Tenant::create(['id' => Str::uuid()->toString(), 'tenant_code' => Str::random(10), 'name' => 'T2']);
-$userB = AppUser::create(['id' => Str::uuid()->toString(), 'tenant_id' => $tenantB->id, 'email' => Str::random(10).'@e.com', 'password' => 'x']);
+$userB = AppUser::factory()->create(['id' => Str::uuid()->toString(), 'tenant_id' => $tenantB->id, 'email' => Str::random(10).'@e.com', 'password' => 'x']);
 
 \Laravel\Sanctum\Sanctum::actingAs($user);
 $request1 = \Illuminate\Http\Request::create('/api/v1/sync/incidents', 'POST', $payload);

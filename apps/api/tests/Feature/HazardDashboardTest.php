@@ -21,7 +21,7 @@ class HazardDashboardTest extends TestCase
         parent::setUp();
 
         $this->tenant = Tenant::create(['id' => Str::uuid()->toString(), 'tenant_code' => 'TEST01', 'name' => 'Test Tenant']);
-        $this->user = AppUser::create(['id' => Str::uuid()->toString(), 'tenant_id' => $this->tenant->id, 'email' => 'test@example.com', 'password' => bcrypt('password')]);
+        $this->user = AppUser::factory()->create(['id' => Str::uuid()->toString(), 'tenant_id' => $this->tenant->id, 'email' => 'test@example.com', 'password' => bcrypt('password')]);
 
         $this->tenant2 = Tenant::create(['id' => Str::uuid()->toString(), 'tenant_code' => 'TEST02', 'name' => 'Test Tenant 2']);
 

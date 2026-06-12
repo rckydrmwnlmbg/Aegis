@@ -54,4 +54,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Sync Endpoint for offline-first (referenced in phase 2 plan)
     Route::post('/v1/sync/incidents', [SyncController::class, 'incidents']);
+
+    // Inspections
+    Route::get('/v1/inspection-templates', [\App\Http\Controllers\InspectionTemplateController::class, 'index']);
+    Route::post('/v1/inspection-templates', [\App\Http\Controllers\InspectionTemplateController::class, 'store']);
+    Route::get('/v1/inspections', [\App\Http\Controllers\InspectionController::class, 'index']);
+    Route::post('/v1/inspections', [\App\Http\Controllers\InspectionController::class, 'store']);
+    Route::post('/v1/inspections/{id}/complete', [\App\Http\Controllers\InspectionController::class, 'complete']);
 });
