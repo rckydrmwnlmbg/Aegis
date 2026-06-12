@@ -36,7 +36,7 @@
 - [x] Task 2 (Mobile): UI Eksekusi Inspeksi.
 
 ## Milestone 3.2 Status
-- [x] Task 1 (Backend): Buat endpoint pembuatan JSA yang kompleks. (Jsa models exist, and tables, but no explicit endpoint in routes/api.php for creation of JSA)
+- [x] Task 1 (Backend): Buat endpoint pembuatan JSA yang kompleks.
 - [x] Task 2 (Backend): Buat logika *Digital Signature* & rantai persetujuan (permit_approvals).
 - [x] Task 3 (Web & Mobile): UI Pengajuan Izin Kerja.
 
