@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\V1\IncidentController;
 use App\Http\Controllers\Api\V1\CapaController;
 use App\Http\Controllers\Api\V1\SyncController;
 use App\Http\Controllers\Api\V1\CopilotController;
+use App\Http\Controllers\Api\V1\JsaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/v1/ptw', [PtwController::class, 'store']);
     Route::put('/v1/ptw/{id}/status', [PtwController::class, 'updateStatus']);
 
+    // JSA Routes
+    Route::post('/v1/jsa', [JsaController::class, 'store']);
+
     // Incident Routes
     Route::get('/v1/incidents', [IncidentController::class, 'index']);
     Route::get('/v1/incidents/{id}', [IncidentController::class, 'show']);
@@ -44,7 +48,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/v1/capa/{id}', [CapaController::class, 'show']);
     Route::post('/v1/capa', [CapaController::class, 'store']);
     Route::put('/v1/capa/{id}/status', [CapaController::class, 'updateStatus']);
-
 
     // Copilot
     Route::post('/v1/copilot/chat', [CopilotController::class, 'chat']);
