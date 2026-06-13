@@ -19,6 +19,7 @@ class PermitToWorkController extends Controller
     public function store(Request $request): JsonResponse
     {
         $validated = $request->validate([
+            'id' => 'required|uuid',
             'title' => 'required|string|max:255',
             'permit_type_id' => 'nullable|uuid|exists:permit_types,id',
             'jsa_id' => 'nullable|uuid|exists:jsas,id',
@@ -28,11 +29,12 @@ class PermitToWorkController extends Controller
             'valid_until' => 'nullable|date|after_or_equal:valid_from',
         ]);
 
-        $validated['status'] = 'draft';
-        $validated['requested_by'] = $request->user()->id;
-        $validated['tenant_id'] = $request->user()->tenant_id;
+        $permit = PermitToWork::create(array_merge($validated, [
+            'status' => 'draft',
+            'requested_by' => $request->user()->id,
+            'tenant_id' => $request->user()->tenant_id,
+        ]));
 
-        $permit = PermitToWork::create($validated);
 
         return response()->json([
             'data' => $permit,

@@ -9,7 +9,7 @@ use App\Models\AppUser;
 use Illuminate\Support\Str;
 
 $tenant = Tenant::create(['id' => Str::uuid()->toString(), 'tenant_code' => Str::random(10), 'name' => 'T']);
-$user = AppUser::create(['id' => Str::uuid()->toString(), 'tenant_id' => $tenant->id, 'email' => Str::random(10).'@e.com', 'password' => 'x']);
+$user = AppUser::factory()->create(['id' => Str::uuid()->toString(), 'tenant_id' => $tenant->id, 'email' => Str::random(10).'@e.com', 'password' => 'x']);
 Laravel\Sanctum\Sanctum::actingAs($user);
 
 $uuid = Str::uuid()->toString();

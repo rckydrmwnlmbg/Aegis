@@ -20,7 +20,7 @@ class SyncTest extends TestCase {
         parent::setUp();
         Queue::fake();
         $this->tenant = Tenant::create(['id' => Str::uuid()->toString(), 'tenant_code' => 'TEST01', 'name' => 'Test Tenant']);
-        $this->user = AppUser::create(['id' => Str::uuid()->toString(), 'tenant_id' => $this->tenant->id, 'email' => 'test@example.com', 'password' => bcrypt('password')]);
+        $this->user = AppUser::factory()->create(['id' => Str::uuid()->toString(), 'tenant_id' => $this->tenant->id, 'email' => 'test@example.com', 'password' => bcrypt('password')]);
         Sanctum::actingAs($this->user);
     }
 
@@ -69,7 +69,7 @@ class SyncTest extends TestCase {
         $this->postJson('/api/v1/sync/incidents', $payload)->assertStatus(202);
 
         $tenant2 = Tenant::create(['id' => Str::uuid()->toString(), 'tenant_code' => 'TEST02', 'name' => 'Tenant 2']);
-        $user2 = AppUser::create(['id' => Str::uuid()->toString(), 'tenant_id' => $tenant2->id, 'email' => 'user2@example.com', 'password' => bcrypt('password')]);
+        $user2 = AppUser::factory()->create(['id' => Str::uuid()->toString(), 'tenant_id' => $tenant2->id, 'email' => 'user2@example.com', 'password' => bcrypt('password')]);
 
         auth()->forgetGuards();
         Sanctum::actingAs($user2);

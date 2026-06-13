@@ -28,14 +28,16 @@ class PermitToWorkFeatureTest extends TestCase
 
         $this->tenant = Tenant::create(['name' => 'Test Tenant', 'tenant_code' => 'TEST']);
 
-        $this->requester = AppUser::create([
+        $this->requester = AppUser::factory()->create([
             'tenant_id' => $this->tenant->id,
+            'name' => 'Requester User',
             'email' => 'requester@test.com',
             'password' => bcrypt('password'),
         ]);
 
-        $this->approver = AppUser::create([
+        $this->approver = AppUser::factory()->create([
             'tenant_id' => $this->tenant->id,
+            'name' => 'Approver User',
             'email' => 'approver@test.com',
             'password' => bcrypt('password'),
         ]);
@@ -52,15 +54,18 @@ class PermitToWorkFeatureTest extends TestCase
         Sanctum::actingAs($this->requester);
 
         $response = $this->postJson('/api/v1/ptw', [
+            'id' => \Illuminate\Support\Str::uuid()->toString(),
             'title' => 'Hot Work in Area A',
             'work_scope' => 'Welding pipes',
         ]);
 
+        if ($response->status() !== 201) { dump($response->json()); }
         $response->assertStatus(201)
             ->assertJsonPath('data.title', 'Hot Work in Area A')
             ->assertJsonPath('data.status', PermitStatus::DRAFT->value);
 
         $this->assertDatabaseHas('permit_to_works', [
+            'id' => \Illuminate\Support\Str::uuid()->toString(),
             'title' => 'Hot Work in Area A',
             'status' => PermitStatus::DRAFT->value,
             'requested_by' => $this->requester->id,

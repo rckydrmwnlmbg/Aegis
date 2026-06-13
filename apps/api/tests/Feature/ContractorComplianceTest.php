@@ -30,7 +30,7 @@ class ContractorComplianceTest extends TestCase
             'tenant_code' => 'TEST-01',
         ]);
 
-        $this->user = AppUser::create([
+        $this->user = AppUser::factory()->create([
             'id' => Str::uuid(),
             'tenant_id' => $this->tenant->id,
             'name' => 'Safety Officer',

@@ -64,7 +64,7 @@ class HseCopilotTest extends TestCase
                  ->andReturn('Based on the context, here is the safety info.');
         });
 
-        $response = $this->actingAs($this->user)->postJson('/api/v1/copilot/ask', [
+        $response = $this->actingAs($this->user)->postJson('/api/v1/copilot/chat', [
             'question' => 'What is the safety info?',
         ]);
 

@@ -15,7 +15,7 @@ class AttachmentTest extends TestCase {
     protected function setUp(): void {
         parent::setUp();
         $this->tenant = Tenant::create(['id' => Str::uuid()->toString(), 'tenant_code' => 'TEST01', 'name' => 'Test Tenant']);
-        $this->user = AppUser::create(['id' => Str::uuid()->toString(), 'tenant_id' => $this->tenant->id, 'email' => 'test@example.com', 'password' => bcrypt('password')]);
+        $this->user = AppUser::factory()->create(['id' => Str::uuid()->toString(), 'tenant_id' => $this->tenant->id, 'email' => 'test@example.com', 'password' => bcrypt('password')]);
         Sanctum::actingAs($this->user);
     }
     public function test_can_upload_attachment() {

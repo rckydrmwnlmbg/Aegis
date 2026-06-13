@@ -59,7 +59,7 @@
 - [x] Task 1 (Backend): Buat endpoint agregasi data.
 - [x] Task 2 (Web): Buat komponen *Chart* (Dashboard Widgets and Skeleton API Integration Completed).
 - [x] Task 3 (Web): Dashboard Page Refactoring (Implemented Role-Based Access Control and distinct Bento Box UI for different Roles).
-- [ ] Task 4 (DevOps): Susun Dockerfile dan CI/CD.
+- [x] Task 4 (DevOps): Susun Dockerfile dan CI/CD.
 
 ## Known Deviations from Devplan
 - Codebase uses Laravel 13 instead of Laravel 11 (Documented in ADR-001).
